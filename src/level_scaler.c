@@ -65,8 +65,17 @@ struct LevelRange GetWildPokemonLevelRange(u8 badge_count, u8 region_id, bool8 e
  */
 u8 GetGymLeaderAverageLevel(u8 badge_count, u8 region_id)
 {
-    // TODO: Implement in task 3.2
-    return 0;
+    struct LevelRange wild_range;
+    bool8 elite_four_defeated;
+    
+    /* Get Elite Four status for current region */
+    elite_four_defeated = IsEliteFourDefeated(region_id);
+    
+    /* Get wild Pokemon level range */
+    wild_range = GetWildPokemonLevelRange(badge_count, region_id, elite_four_defeated);
+    
+    /* Gym leader average = wild_max + 5 */
+    return wild_range.max_level + 5;
 }
 
 /**
@@ -75,8 +84,25 @@ u8 GetGymLeaderAverageLevel(u8 badge_count, u8 region_id)
  */
 u8 GetGymLeaderAceLevel(u8 gym_leader_id)
 {
-    // TODO: Implement in task 3.2
-    return 0;
+    u8 badge_count;
+    u8 region_id;
+    u8 average_level;
+    u8 ace_bonus;
+    
+    /* Get current progression state */
+    badge_count = GetBadgeCount();
+    region_id = GetCurrentRegion();
+    
+    /* Get gym leader's average level */
+    average_level = GetGymLeaderAverageLevel(badge_count, region_id);
+    
+    /* Ace bonus: 3 to 5 levels above average */
+    /* For simplicity, use a fixed bonus of 4 levels */
+    /* (Could be randomized or based on gym_leader_id for variety) */
+    ace_bonus = 4;
+    
+    /* Gym leader ace = average + 3 to 5 */
+    return average_level + ace_bonus;
 }
 
 /**
@@ -85,8 +111,17 @@ u8 GetGymLeaderAceLevel(u8 gym_leader_id)
  */
 u8 GetEliteFourAverageLevel(u8 badge_count, u8 region_id)
 {
-    // TODO: Implement in task 3.3
-    return 0;
+    struct LevelRange wild_range;
+    bool8 elite_four_defeated;
+    
+    /* Get Elite Four status for current region */
+    elite_four_defeated = IsEliteFourDefeated(region_id);
+    
+    /* Get wild Pokemon level range */
+    wild_range = GetWildPokemonLevelRange(badge_count, region_id, elite_four_defeated);
+    
+    /* Elite Four average = wild_max + 10 */
+    return wild_range.max_level + 10;
 }
 
 /**
@@ -95,8 +130,25 @@ u8 GetEliteFourAverageLevel(u8 badge_count, u8 region_id)
  */
 u8 GetEliteFourAceLevel(u8 elite_four_member_id)
 {
-    // TODO: Implement in task 3.3
-    return 0;
+    u8 badge_count;
+    u8 region_id;
+    u8 average_level;
+    u8 ace_bonus;
+    
+    /* Get current progression state */
+    badge_count = GetBadgeCount();
+    region_id = GetCurrentRegion();
+    
+    /* Get Elite Four's average level */
+    average_level = GetEliteFourAverageLevel(badge_count, region_id);
+    
+    /* Ace bonus: 3 to 5 levels above average */
+    /* For simplicity, use a fixed bonus of 4 levels */
+    /* (Could be randomized or based on elite_four_member_id for variety) */
+    ace_bonus = 4;
+    
+    /* Elite Four ace = average + 3 to 5 */
+    return average_level + ace_bonus;
 }
 
 /**
@@ -105,9 +157,21 @@ u8 GetEliteFourAceLevel(u8 elite_four_member_id)
  */
 u8 GetRivalAverageLevel(u8 badge_count, u8 region_id)
 {
-    // TODO: Implement in task 3.4
-    return 0;
+    u8 last_gym_average;
+
+    /* Special case: First rival battle (0 badges) - rival should be at starter level */
+    if (badge_count == 0)
+    {
+        return 5;
+    }
+
+    /* Calculate last gym leader's average level */
+    last_gym_average = GetGymLeaderAverageLevel(badge_count, region_id);
+
+    /* Rival average = last gym average + 10 */
+    return last_gym_average + 10;
 }
+
 
 /**
  * Calculate rival ace Pokemon level
@@ -115,9 +179,27 @@ u8 GetRivalAverageLevel(u8 badge_count, u8 region_id)
  */
 u8 GetRivalAceLevel(u8 rival_encounter_id)
 {
-    // TODO: Implement in task 3.4
-    return 0;
+    u8 badge_count;
+    u8 region_id;
+    u8 average_level;
+    u8 ace_bonus;
+
+    /* Get current progression state */
+    badge_count = GetBadgeCount();
+    region_id = GetCurrentRegion();
+
+    /* Get rival's average level */
+    average_level = GetRivalAverageLevel(badge_count, region_id);
+
+    /* Ace bonus: 7 to 10 levels above average */
+    /* For simplicity, use a fixed bonus of 8 levels */
+    /* (Could be randomized or based on rival_encounter_id for variety) */
+    ace_bonus = 8;
+
+    /* Rival ace = average + 7 to 10 */
+    return average_level + ace_bonus;
 }
+
 
 /**
  * Get the current level cap

@@ -3147,12 +3147,14 @@ static void Cmd_getexp(void)
             u16 calculatedExp;
             s32 viaSentIn;
 
+            /* Pokemon Tuxedo: Full Party EXP - treat all alive party members as participants */
             for (viaSentIn = 0, i = 0; i < PARTY_SIZE; i++)
             {
                 if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE || GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0)
                     continue;
-                if (gBitTable[i] & sentIn)
-                    viaSentIn++;
+                
+                /* Count all alive Pokemon as participants for full party EXP */
+                viaSentIn++;
 
                 item = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
 
@@ -3167,27 +3169,24 @@ static void Cmd_getexp(void)
 
             calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 7;
 
-            if (viaExpShare) // at least one mon is getting exp via exp share
-            {
-                *exp = SAFE_DIV(calculatedExp / 2, viaSentIn);
-                if (*exp == 0)
-                    *exp = 1;
-
-                gExpShareExp = calculatedExp / 2 / viaExpShare;
-                if (gExpShareExp == 0)
-                    gExpShareExp = 1;
-            }
-            else
-            {
-                *exp = SAFE_DIV(calculatedExp, viaSentIn);
-                if (*exp == 0)
-                    *exp = 1;
-                gExpShareExp = 0;
-            }
+            /* Pokemon Tuxedo: Give full EXP to all party members (no splitting) */
+            *exp = calculatedExp;
+            if (*exp == 0)
+                *exp = 1;
+            
+            gExpShareExp = 0; /* No longer needed with full party EXP */
 
             gBattleScripting.getexpState++;
             gBattleStruct->expGetterMonId = 0;
-            gBattleStruct->sentInPokes = sentIn;
+            /* Pokemon Tuxedo: Mark all alive Pokemon as having participated */
+            gBattleStruct->sentInPokes = 0;
+            for (i = 0; i < PARTY_SIZE; i++)
+            {
+                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_HP) > 0)
+                {
+                    gBattleStruct->sentInPokes |= gBitTable[i];
+                }
+            }
         }
         // fall through
     case 2: // set exp value to the poke in expgetter_id and print message
@@ -3200,13 +3199,8 @@ static void Cmd_getexp(void)
             else
                 holdEffect = ItemId_GetHoldEffect(item);
 
-            if (holdEffect != HOLD_EFFECT_EXP_SHARE && !(gBattleStruct->sentInPokes & 1))
-            {
-                *(&gBattleStruct->sentInPokes) >>= 1;
-                gBattleScripting.getexpState = 5;
-                gBattleMoveDamage = 0; // used for exp
-            }
-            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == MAX_LEVEL)
+            /* Pokemon Tuxedo: Skip Pokemon at max level */
+            if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == MAX_LEVEL)
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.getexpState = 5;
@@ -3224,15 +3218,10 @@ static void Cmd_getexp(void)
 
                 if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
                 {
-                    if (gBattleStruct->sentInPokes & 1)
-                        gBattleMoveDamage = *exp;
-                    else
-                        gBattleMoveDamage = 0;
+                    /* Pokemon Tuxedo: All alive Pokemon get full EXP */
+                    gBattleMoveDamage = *exp;
 
-                    if (holdEffect == HOLD_EFFECT_EXP_SHARE)
-                        gBattleMoveDamage += gExpShareExp;
-                    
-                    // Pokemon Tuxedo: Apply exp multipliers (Lucky Egg, Mystic Egg, Magic Egg)
+                    /* Pokemon Tuxedo: Apply exp multipliers (Lucky Egg, Mystic Egg, Magic Egg) */
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
                         gBattleMoveDamage = (gBattleMoveDamage * 200) / 100;  // 2x multiplier
                     else
