@@ -1598,9 +1598,25 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             }
             else
             {
-                // Regular trainer - use wild Pokemon level range
+                // Regular trainer - use wild Pokemon level range + 5
+                // If wild range is 10-20, trainer range should be 15-25
                 level_range = SafeGetWildPokemonLevelRange(badge_count, region_id, FALSE);
-                scaled_level = level_range.min_level + ((level_range.max_level - level_range.min_level) / 2);
+                
+                // Calculate trainer range: wild_min + 5 to wild_max + 5
+                // Use random level within this range for variety
+                {
+                    u8 trainer_min = level_range.min_level + 5;
+                    u8 trainer_max = level_range.max_level + 5;
+                    u8 range_size = trainer_max - trainer_min;
+                    
+                    // Use a simple pseudo-random based on trainer number and Pokemon index
+                    u8 random_offset = (trainerNum + i) % (range_size + 1);
+                    scaled_level = trainer_min + random_offset;
+                    
+                    // Clamp to valid range
+                    if (scaled_level > 100)
+                        scaled_level = 100;
+                }
             }
 
             if (gTrainers[trainerNum].doubleBattle == TRUE)
