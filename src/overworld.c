@@ -1918,7 +1918,8 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
         break;
     case 14:
         // Pokemon Tuxedo: Map entry hook for fly location discovery
-        OnMapEntered(gMapHeader.mapIndex);
+        // Combine mapGroup and mapNum into a single map ID
+        OnMapEntered((gSaveBlock1Ptr->location.mapGroup << 8) | gSaveBlock1Ptr->location.mapNum);
         return TRUE;
     }
     return FALSE;

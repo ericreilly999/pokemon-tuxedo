@@ -11,6 +11,9 @@
  * - 10.3: Non-participating Pokemon receive same exp as participants
  */
 
+// Forward declaration
+static void GiveExperienceToMon(struct Pokemon *pokemon, u32 exp);
+
 void AwardExperienceToParty(u32 base_exp)
 {
     u8 i;
@@ -36,7 +39,7 @@ void AwardExperienceToParty(u32 base_exp)
     }
 }
 
-void GiveExperienceToMon(struct Pokemon *pokemon, u32 exp)
+static void GiveExperienceToMon(struct Pokemon *pokemon, u32 exp)
 {
     u32 current_exp;
     u32 new_exp;

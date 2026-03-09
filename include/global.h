@@ -763,11 +763,11 @@ struct PokemonTuxedoSaveData {
     bool8 elite_four_defeated[4];         // One flag per region
     u8 current_level_cap;                 // Maximum level Pokemon can reach
     u8 active_exp_multiplier;             // 1=none, 2=Lucky, 3=Mystic, 4=Magic
-    bool8 fly_locations_discovered[256];  // Bitfield for discovered fly locations
+    u8 fly_locations_discovered[32];      // Bitfield for discovered fly locations (256 bits = 32 bytes)
     u8 region_badges[4];                  // Badges per region (0-8 each)
     u8 battle_mode;                       // 0=shift, 1=set
     u8 game_speed;                        // 1-10 (speed multiplier)
-};
+}; // size: 46 bytes
 
 struct SaveBlock1
 {

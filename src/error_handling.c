@@ -3,6 +3,9 @@
 #include "level_scaler.h"
 #include "region_manager.h"
 #include "system_integration.h"
+#include "exp_multipliers.h"
+#include "storage_system.h"
+#include "full_party_exp.h"
 
 /*
  * Error Handling and Safety Checks
@@ -79,6 +82,81 @@ struct LevelRange SafeGetWildPokemonLevelRange(u8 badge_count, u8 region_id, boo
     return range;
 }
 
+u8 SafeGetGymLeaderAverageLevel(u8 badge_count, u8 region_id)
+{
+    /*
+     * Safe wrapper for GetGymLeaderAverageLevel with validation
+     */
+    if (!ValidateBadgeCount(badge_count))
+        badge_count = 0;
+    
+    if (!ValidateRegionId(region_id))
+        region_id = REGION_KANTO;
+    
+    return ClampLevel(GetGymLeaderAverageLevel(badge_count, region_id));
+}
+
+u8 SafeGetGymLeaderAceLevel(u8 badge_count)
+{
+    /*
+     * Safe wrapper for GetGymLeaderAceLevel with validation
+     */
+    if (!ValidateBadgeCount(badge_count))
+        badge_count = 0;
+    
+    return ClampLevel(GetGymLeaderAceLevel(badge_count));
+}
+
+u8 SafeGetEliteFourAverageLevel(u8 badge_count, u8 region_id)
+{
+    /*
+     * Safe wrapper for GetEliteFourAverageLevel with validation
+     */
+    if (!ValidateBadgeCount(badge_count))
+        badge_count = 0;
+    
+    if (!ValidateRegionId(region_id))
+        region_id = REGION_KANTO;
+    
+    return ClampLevel(GetEliteFourAverageLevel(badge_count, region_id));
+}
+
+u8 SafeGetEliteFourAceLevel(u8 badge_count)
+{
+    /*
+     * Safe wrapper for GetEliteFourAceLevel with validation
+     */
+    if (!ValidateBadgeCount(badge_count))
+        badge_count = 0;
+    
+    return ClampLevel(GetEliteFourAceLevel(badge_count));
+}
+
+u8 SafeGetRivalAverageLevel(u8 badge_count, u8 region_id)
+{
+    /*
+     * Safe wrapper for GetRivalAverageLevel with validation
+     */
+    if (!ValidateBadgeCount(badge_count))
+        badge_count = 0;
+    
+    if (!ValidateRegionId(region_id))
+        region_id = REGION_KANTO;
+    
+    return ClampLevel(GetRivalAverageLevel(badge_count, region_id));
+}
+
+u8 SafeGetRivalAceLevel(u8 badge_count)
+{
+    /*
+     * Safe wrapper for GetRivalAceLevel with validation
+     */
+    if (!ValidateBadgeCount(badge_count))
+        badge_count = 0;
+    
+    return ClampLevel(GetRivalAceLevel(badge_count));
+}
+
 // ============================================================================
 // Save Data Corruption Handling
 // ============================================================================
@@ -96,11 +174,12 @@ void RecoverFromCorruptedSave(void)
     /*
      * Recover from corrupted save data by resetting to defaults
      */
+    u8 i;
     
     // Reset to default values
     SetCurrentRegion(REGION_KANTO);
     
-    for (u8 i = 0; i < 4; i++)
+    for (i = 0; i < 4; i++)
     {
         // Clear Elite Four defeat flags
         // (Would need to implement ClearEliteFourDefeated function)
@@ -157,33 +236,6 @@ bool8 ValidateExpGain(u32 exp)
     return exp <= MAX_EXP_GAIN;
 }
 
-u32 SafeApplyExpMultiplier(u32 base_exp)
-{
-    /*
-     * Safe wrapper for ApplyExpMultiplier with overflow protection
-     */
-    
-    u8 multiplier = GetActiveExpMultiplier();
-    
-    // Check for overflow
-    if (base_exp > (UINT32_MAX / multiplier))
-    {
-        // Would overflow, return maximum safe value
-        return UINT32_MAX;
-    }
-    
-    u32 result = base_exp * multiplier;
-    
-    // Validate result
-    if (!ValidateExpGain(result))
-    {
-        // Cap at maximum reasonable value
-        return 100000;
-    }
-    
-    return result;
-}
-
 bool8 CanPokemonGainExp(struct Pokemon *pokemon)
 {
     /*
@@ -194,16 +246,18 @@ bool8 CanPokemonGainExp(struct Pokemon *pokemon)
      * - Pokemon is not at max level
      * - Pokemon is not above level cap
      */
+    u8 level;
+    u8 level_cap;
     
     if (GetMonData(pokemon, MON_DATA_IS_EGG, NULL))
         return FALSE;
     
-    u8 level = GetMonData(pokemon, MON_DATA_LEVEL, NULL);
+    level = GetMonData(pokemon, MON_DATA_LEVEL, NULL);
     
     if (level >= 100)
         return FALSE;
     
-    u8 level_cap = GetCurrentLevelCap();
+    level_cap = GetCurrentLevelCap();
     
     if (level >= level_cap)
         return FALSE;
@@ -223,11 +277,8 @@ void SafeAwardExperienceToParty(u32 base_exp)
         base_exp = 10000;  // Cap at reasonable value
     }
     
-    // Apply multiplier safely
-    u32 multiplied_exp = SafeApplyExpMultiplier(base_exp);
-    
-    // Award to party
-    AwardExperienceToParty(multiplied_exp);
+    // Award to party (multiplier is applied per-Pokemon in the function)
+    AwardExperienceToParty(base_exp);
 }
 
 // ============================================================================
@@ -244,13 +295,14 @@ bool8 ValidateStorageAccess(void)
      * - Not in cutscene
      * - Party is valid
      */
+    u8 party_count;
     
     if (!CanAccessStorageSystem())
         return FALSE;
     
     // Additional validation
     // Check party is not empty
-    u8 party_count = CalculatePlayerPartyCount();
+    party_count = CalculatePlayerPartyCount();
     if (party_count == 0)
         return FALSE;
     
@@ -267,11 +319,12 @@ bool8 ValidatePokemonTransfer(struct Pokemon *pokemon)
      * - Pokemon data is valid
      * - Not the last Pokemon in party (for deposit)
      */
+    u16 species;
     
     if (pokemon == NULL)
         return FALSE;
     
-    u16 species = GetMonData(pokemon, MON_DATA_SPECIES, NULL);
+    species = GetMonData(pokemon, MON_DATA_SPECIES, NULL);
     if (species == SPECIES_NONE || species > NUM_SPECIES)
         return FALSE;
     
@@ -292,6 +345,7 @@ bool8 ValidateRegionTravel(u8 target_region)
      * - Requirements are met (E4 defeat + ticket)
      * - Player has Pokemon in party
      */
+    u8 party_count;
     
     if (!ValidateRegionId(target_region))
         return FALSE;
@@ -300,7 +354,7 @@ bool8 ValidateRegionTravel(u8 target_region)
         return FALSE;
     
     // Check party is not empty
-    u8 party_count = CalculatePlayerPartyCount();
+    party_count = CalculatePlayerPartyCount();
     if (party_count == 0)
         return FALSE;
     
@@ -335,11 +389,15 @@ bool8 ValidateGameState(void)
      * 
      * Returns TRUE if all systems are in valid state
      */
+    bool8 valid;
+    u8 region;
+    u8 badges;
+    u8 level_cap;
     
-    bool8 valid = TRUE;
+    valid = TRUE;
     
     // Validate region
-    u8 region = GetCurrentRegion();
+    region = GetCurrentRegion();
     if (!ValidateRegionId(region))
     {
         LogError("Region", "Invalid region ID");
@@ -347,7 +405,7 @@ bool8 ValidateGameState(void)
     }
     
     // Validate badge count
-    u8 badges = GetBadgeCount();
+    badges = GetBadgeCount();
     if (!ValidateBadgeCount(badges))
     {
         LogError("Badges", "Invalid badge count");
@@ -355,7 +413,7 @@ bool8 ValidateGameState(void)
     }
     
     // Validate level cap
-    u8 level_cap = GetCurrentLevelCap();
+    level_cap = GetCurrentLevelCap();
     if (level_cap < 1 || level_cap > 100)
     {
         LogError("Level Cap", "Invalid level cap");

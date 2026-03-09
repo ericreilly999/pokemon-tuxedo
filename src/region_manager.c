@@ -84,6 +84,8 @@ u16 GetRegionTicketItem(u8 region_id)
 
 bool8 CanTravelToRegion(u8 target_region)
 {
+    u16 ticket_item;
+    
     // Can always stay in current region
     if (target_region == sCurrentRegion)
         return TRUE;
@@ -97,7 +99,7 @@ bool8 CanTravelToRegion(u8 target_region)
         return FALSE;
     
     // And possession of the target region's ticket
-    u16 ticket_item = GetRegionTicketItem(target_region);
+    ticket_item = GetRegionTicketItem(target_region);
     if (ticket_item == ITEM_NONE)
         return FALSE;
     
@@ -106,12 +108,14 @@ bool8 CanTravelToRegion(u8 target_region)
 
 void AwardRegionTicket(void)
 {
+    u16 ticket_item;
+    
     // Only award ticket if Elite Four defeated in current region
     if (!IsEliteFourDefeated(sCurrentRegion))
         return;
     
     // Determine next region ticket based on current region
-    u16 ticket_item = ITEM_NONE;
+    ticket_item = ITEM_NONE;
     
     switch (sCurrentRegion)
     {

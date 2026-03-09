@@ -9,6 +9,12 @@ u8 ClampLevel(u8 level);
 bool8 ValidateBadgeCount(u8 badge_count);
 bool8 ValidateRegionId(u8 region_id);
 struct LevelRange SafeGetWildPokemonLevelRange(u8 badge_count, u8 region_id, bool8 elite_four_defeated);
+u8 SafeGetGymLeaderAverageLevel(u8 badge_count, u8 region_id);
+u8 SafeGetGymLeaderAceLevel(u8 badge_count);
+u8 SafeGetEliteFourAverageLevel(u8 badge_count, u8 region_id);
+u8 SafeGetEliteFourAceLevel(u8 badge_count);
+u8 SafeGetRivalAverageLevel(u8 badge_count, u8 region_id);
+u8 SafeGetRivalAceLevel(u8 badge_count);
 
 // Save data corruption handling
 bool8 ValidateSaveDataChecksum(void);
@@ -18,7 +24,6 @@ bool8 RestoreFromBackup(void);
 
 // Battle system error handling
 bool8 ValidateExpGain(u32 exp);
-u32 SafeApplyExpMultiplier(u32 base_exp);
 bool8 CanPokemonGainExp(struct Pokemon *pokemon);
 void SafeAwardExperienceToParty(u32 base_exp);
 

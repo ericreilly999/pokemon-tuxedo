@@ -3,6 +3,7 @@
 #include "battle.h"
 #include "event_data.h"
 #include "menu.h"
+#include "script.h"
 
 /*
  * Storage System - Pause Menu Access

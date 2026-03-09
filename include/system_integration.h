@@ -2,6 +2,7 @@
 #define GUARD_SYSTEM_INTEGRATION_H
 
 #include "global.h"
+#include "battle.h"
 
 // Save data management
 void SavePokemonTuxedoData(void);

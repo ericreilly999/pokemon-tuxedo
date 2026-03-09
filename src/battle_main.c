@@ -1548,19 +1548,29 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
      && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER_TOWER)))
     {
+        // Pokemon Tuxedo: Declare variables at the beginning (C89 requirement)
+        u8 badge_count;
+        u8 region_id;
+        u8 trainer_class;
+        u8 party_size;
+        
         ZeroEnemyPartyMons();
         
         // Pokemon Tuxedo: Get scaled levels for this trainer
-        u8 badge_count = GetBadgeCount();
-        u8 region_id = GetCurrentRegion();
-        u8 trainer_class = gTrainers[trainerNum].trainerClass;
-        u8 party_size = gTrainers[trainerNum].partySize;
+        badge_count = GetBadgeCount();
+        region_id = GetCurrentRegion();
+        trainer_class = gTrainers[trainerNum].trainerClass;
+        party_size = gTrainers[trainerNum].partySize;
         
         for (i = 0; i < gTrainers[trainerNum].partySize; i++)
         {
-            // Pokemon Tuxedo: Calculate scaled level for this Pokemon
+            // Pokemon Tuxedo: Declare variables at the beginning (C89 requirement)
             u8 scaled_level;
-            bool8 is_ace = (i == party_size - 1);
+            bool8 is_ace;
+            struct LevelRange level_range;
+            
+            // Pokemon Tuxedo: Calculate scaled level for this Pokemon
+            is_ace = (i == party_size - 1);
             
             if (trainer_class == TRAINER_CLASS_LEADER)
             {
@@ -1589,7 +1599,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             else
             {
                 // Regular trainer - use wild Pokemon level range
-                struct LevelRange level_range = SafeGetWildPokemonLevelRange(badge_count, region_id, FALSE);
+                level_range = SafeGetWildPokemonLevelRange(badge_count, region_id, FALSE);
                 scaled_level = level_range.min_level + ((level_range.max_level - level_range.min_level) / 2);
             }
 
