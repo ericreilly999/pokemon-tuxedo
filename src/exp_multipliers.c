@@ -1,0 +1,83 @@
+#include "global.h"
+#include "exp_multipliers.h"
+#include "item.h"
+#include "constants/items.h"
+#include "constants/hold_effects.h"
+
+/*
+ * EXP Multiplier System
+ * 
+ * Requirements:
+ * - 11.4: Multiplier applies to all experience gains
+ * - 11.5: Multiplier stacks with full party experience
+ * - 11.6: Only highest multiplier applies
+ * - 11.7: Priority: Magic Egg (4x) > Mystic Egg (3x) > Lucky Egg (2x)
+ */
+
+u8 GetActiveExpMultiplier(void)
+{
+    // Check in priority order (highest to lowest)
+    if (CheckBagHasItem(ITEM_MAGIC_EGG, 1))
+        return 4;
+    else if (CheckBagHasItem(ITEM_MYSTIC_EGG, 1))
+        return 3;
+    else if (CheckBagHasItem(ITEM_LUCKY_EGG, 1))
+        return 2;
+    else
+        return 1;  // No multiplier
+}
+
+u32 ApplyExpMultiplier(u32 base_exp)
+{
+    u8 multiplier = GetActiveExpMultiplier();
+    return base_exp * multiplier;
+}
+
+void AwardMultiplierItemAfterEliteFour(u8 region_id)
+{
+    /*
+     * Award multiplier items after Elite Four defeats:
+     * - Kanto E4: Lucky Egg (2x)
+     * - Johto E4: Mystic Egg (3x)
+     * - Hoenn E4: Magic Egg (4x)
+     * - Sinnoh E4: No additional multiplier
+     */
+    
+    switch (region_id)
+    {
+    case REGION_KANTO:
+        AddBagItem(ITEM_LUCKY_EGG, 1);
+        break;
+    case REGION_JOHTO:
+        AddBagItem(ITEM_MYSTIC_EGG, 1);
+        break;
+    case REGION_HOENN:
+        AddBagItem(ITEM_MAGIC_EGG, 1);
+        break;
+    case REGION_SINNOH:
+        // No additional multiplier after Sinnoh
+        break;
+    }
+}
+
+u32 SafeApplyExpMultiplier(u32 base_exp, u16 held_item)
+{
+    /*
+     * Safe wrapper for applying exp multipliers based on held item
+     * Used in battle_script_commands.c
+     * 
+     * Checks hold effect of the item and applies appropriate multiplier:
+     * - HOLD_EFFECT_MYSTIC_EGG: 3x
+     * - HOLD_EFFECT_MAGIC_EGG: 4x
+     * - Default: 1x (no change)
+     */
+    
+    u8 hold_effect = ItemId_GetHoldEffect(held_item);
+    
+    if (hold_effect == HOLD_EFFECT_MYSTIC_EGG)
+        return (base_exp * 300) / 100;  // 3x multiplier
+    else if (hold_effect == HOLD_EFFECT_MAGIC_EGG)
+        return (base_exp * 400) / 100;  // 4x multiplier
+    else
+        return base_exp;  // No multiplier
+}

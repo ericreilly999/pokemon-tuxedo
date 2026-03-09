@@ -445,7 +445,14 @@
 #define ITEM_RUBY 373
 #define ITEM_SAPPHIRE 374
 
-#define ITEMS_COUNT 375
+// Pokemon Tuxedo: New items
+#define ITEM_MYSTIC_EGG 375
+#define ITEM_MAGIC_EGG 376
+#define ITEM_JOHTO_TICKET 377
+#define ITEM_HOENN_TICKET 378
+#define ITEM_SINNOH_TICKET 379
+
+#define ITEMS_COUNT 380
 
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
 #define MAIL_NONE 0xFF

@@ -28,6 +28,8 @@
 #include "party_menu.h"
 #include "money.h"
 #include "coins.h"
+#include "system_integration.h"
+#include "constants/flags.h"
 #include "battle_setup.h"
 #include "shop.h"
 #include "slot_machine.h"
@@ -556,7 +558,15 @@ bool8 ScrCmd_checkdecor(struct ScriptContext * ctx)
 
 bool8 ScrCmd_setflag(struct ScriptContext * ctx)
 {
-    FlagSet(ScriptReadHalfword(ctx));
+    u16 flag = ScriptReadHalfword(ctx);
+    FlagSet(flag);
+    
+    // Pokemon Tuxedo: Check if this is a badge flag and update level cap
+    if (flag >= FLAG_BADGE01_GET && flag <= FLAG_BADGE08_GET)
+    {
+        OnBadgeAcquired();
+    }
+    
     return FALSE;
 }
 

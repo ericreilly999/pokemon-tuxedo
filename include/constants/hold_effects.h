@@ -69,4 +69,8 @@
 #define HOLD_EFFECT_THICK_CLUB     65
 #define HOLD_EFFECT_STICK          66
 
+// Pokemon Tuxedo: New hold effects for exp multiplier items
+#define HOLD_EFFECT_MYSTIC_EGG     67
+#define HOLD_EFFECT_MAGIC_EGG      68
+
 #endif // GUARD_HOLD_EFFECTS_H

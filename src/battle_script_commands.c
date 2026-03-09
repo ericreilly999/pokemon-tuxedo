@@ -36,6 +36,8 @@
 #include "constants/abilities.h"
 #include "constants/pokemon.h"
 #include "constants/maps.h"
+#include "exp_multipliers.h"
+#include "error_handling.h"
 
 extern const u8 *const gBattleScriptsForMoveEffects[];
 
@@ -3229,8 +3231,13 @@ static void Cmd_getexp(void)
 
                     if (holdEffect == HOLD_EFFECT_EXP_SHARE)
                         gBattleMoveDamage += gExpShareExp;
+                    
+                    // Pokemon Tuxedo: Apply exp multipliers (Lucky Egg, Mystic Egg, Magic Egg)
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+                        gBattleMoveDamage = (gBattleMoveDamage * 200) / 100;  // 2x multiplier
+                    else
+                        gBattleMoveDamage = SafeApplyExpMultiplier(gBattleMoveDamage, item);
+                    
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId])

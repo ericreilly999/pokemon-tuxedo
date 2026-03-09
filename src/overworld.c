@@ -48,6 +48,7 @@
 #include "vs_seeker.h"
 #include "wild_encounter.h"
 #include "constants/cable_club.h"
+#include "system_integration.h"
 #include "constants/event_objects.h"
 #include "constants/maps.h"
 #include "constants/region_map_sections.h"
@@ -1916,6 +1917,8 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
             (*state)++;
         break;
     case 14:
+        // Pokemon Tuxedo: Map entry hook for fly location discovery
+        OnMapEntered(gMapHeader.mapIndex);
         return TRUE;
     }
     return FALSE;

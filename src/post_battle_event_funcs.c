@@ -6,6 +6,7 @@
 #include "hall_of_fame.h"
 #include "load_save.h"
 #include "constants/heal_locations.h"
+#include "system_integration.h"
 
 bool8 EnterHallOfFame(void)
 {
@@ -22,6 +23,9 @@ bool8 EnterHallOfFame(void)
     {
         gHasHallOfFameRecords = FALSE;
         FlagSet(FLAG_SYS_GAME_CLEAR);
+        
+        // Pokemon Tuxedo: Elite Four defeated - award tickets and items
+        OnEliteFourDefeated();
     }
     if (GetGameStat(GAME_STAT_FIRST_HOF_PLAY_TIME) == 0)
     {

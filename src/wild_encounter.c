@@ -16,6 +16,9 @@
 #include "constants/maps.h"
 #include "constants/abilities.h"
 #include "constants/items.h"
+#include "level_scaler.h"
+#include "region_manager.h"
+#include "error_handling.h"
 
 #define MAX_ENCOUNTER_RATE 1600
 
@@ -154,23 +157,18 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
 
 static u8 ChooseWildMonLevel(const struct WildPokemon * info)
 {
-    u8 lo;
-    u8 hi;
-    u8 mod;
-    u8 res;
-    if (info->maxLevel >= info->minLevel)
-    {
-        lo = info->minLevel;
-        hi = info->maxLevel;
-    }
-    else
-    {
-        lo = info->maxLevel;
-        hi = info->minLevel;
-    }
-    mod = hi - lo + 1;
-    res = Random() % mod;
-    return lo + res;
+    // Pokemon Tuxedo: Use dynamic level scaling instead of fixed levels
+    u8 badge_count = GetBadgeCount();
+    u8 region_id = GetCurrentRegion();
+    bool8 elite_four_defeated = IsEliteFourDefeated(region_id);
+    
+    // Get scaled level range
+    struct LevelRange level_range = SafeGetWildPokemonLevelRange(badge_count, region_id, elite_four_defeated);
+    
+    // Choose random level within scaled range
+    u8 mod = level_range.max_level - level_range.min_level + 1;
+    u8 res = Random() % mod;
+    return level_range.min_level + res;
 }
 
 static u16 GetCurrentMapWildMonHeaderId(void)

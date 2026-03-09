@@ -42,6 +42,9 @@
 #include "constants/pokemon.h"
 #include "constants/songs.h"
 #include "constants/trainers.h"
+#include "level_scaler.h"
+#include "region_manager.h"
+#include "error_handling.h"
 
 static void SpriteCB_UnusedDebugSprite(struct Sprite *sprite);
 static void HandleAction_UseMove(void);
@@ -1546,8 +1549,49 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
      && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER_TOWER)))
     {
         ZeroEnemyPartyMons();
+        
+        // Pokemon Tuxedo: Get scaled levels for this trainer
+        u8 badge_count = GetBadgeCount();
+        u8 region_id = GetCurrentRegion();
+        u8 trainer_class = gTrainers[trainerNum].trainerClass;
+        u8 party_size = gTrainers[trainerNum].partySize;
+        
         for (i = 0; i < gTrainers[trainerNum].partySize; i++)
         {
+            // Pokemon Tuxedo: Calculate scaled level for this Pokemon
+            u8 scaled_level;
+            bool8 is_ace = (i == party_size - 1);
+            
+            if (trainer_class == TRAINER_CLASS_LEADER)
+            {
+                // Gym leader
+                if (is_ace)
+                    scaled_level = SafeGetGymLeaderAceLevel(badge_count);
+                else
+                    scaled_level = SafeGetGymLeaderAverageLevel(badge_count, region_id);
+            }
+            else if (trainer_class == TRAINER_CLASS_ELITE_FOUR || trainer_class == TRAINER_CLASS_CHAMPION)
+            {
+                // Elite Four or Champion
+                if (is_ace)
+                    scaled_level = SafeGetEliteFourAceLevel(badge_count);
+                else
+                    scaled_level = SafeGetEliteFourAverageLevel(badge_count, region_id);
+            }
+            else if (trainer_class == TRAINER_CLASS_RIVAL_EARLY || trainer_class == TRAINER_CLASS_RIVAL_LATE)
+            {
+                // Rival
+                if (is_ace)
+                    scaled_level = SafeGetRivalAceLevel(badge_count);
+                else
+                    scaled_level = SafeGetRivalAverageLevel(badge_count, region_id);
+            }
+            else
+            {
+                // Regular trainer - use wild Pokemon level range
+                struct LevelRange level_range = SafeGetWildPokemonLevelRange(badge_count, region_id, FALSE);
+                scaled_level = level_range.min_level + ((level_range.max_level - level_range.min_level) / 2);
+            }
 
             if (gTrainers[trainerNum].doubleBattle == TRUE)
                 personalityValue = 0x80;
@@ -1570,7 +1614,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[i], partyData[i].species, scaled_level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
@@ -1582,7 +1626,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[i], partyData[i].species, scaled_level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
                 {
@@ -1600,7 +1644,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[i], partyData[i].species, scaled_level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
                 break;
@@ -1614,7 +1658,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[i], partyData[i].species, scaled_level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
