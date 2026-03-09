@@ -191,6 +191,12 @@ u8 GetRivalAceLevel(u8 rival_encounter_id)
     /* Get rival's average level */
     average_level = GetRivalAverageLevel(badge_count, region_id);
 
+    /* Special case: First rival battle (0 badges) - ace should also be level 5 */
+    if (badge_count == 0)
+    {
+        return 5;
+    }
+
     /* Ace bonus: 7 to 10 levels above average */
     /* For simplicity, use a fixed bonus of 8 levels */
     /* (Could be randomized or based on rival_encounter_id for variety) */
