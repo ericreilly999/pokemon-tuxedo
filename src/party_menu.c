@@ -2966,11 +2966,21 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
 
     sPartyMenuInternal->numActions = 0;
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_SUMMARY);
-    // Add field moves to action list
+    
+    /* Pokemon Tuxedo: Always add Cut, Rock Smash, and Waterfall (removed HM requirements) */
+    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_CUT + CURSOR_OPTION_FIELD_MOVES);
+    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_ROCK_SMASH + CURSOR_OPTION_FIELD_MOVES);
+    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_WATERFALL + CURSOR_OPTION_FIELD_MOVES);
+    
+    // Add other field moves if Pokemon knows them
     for (i = 0; i < MAX_MON_MOVES; ++i)
     {
         for (j = 0; sFieldMoves[j] != FIELD_MOVE_END; ++j)
         {
+            /* Skip Cut, Rock Smash, Waterfall since we already added them */
+            if (j == FIELD_MOVE_CUT || j == FIELD_MOVE_ROCK_SMASH || j == FIELD_MOVE_WATERFALL)
+                continue;
+                
             if (GetMonData(&mons[slotId], i + MON_DATA_MOVE1) == sFieldMoves[j])
             {
                 AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + CURSOR_OPTION_FIELD_MOVES);
