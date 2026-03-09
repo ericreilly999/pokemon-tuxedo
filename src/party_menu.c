@@ -3932,8 +3932,13 @@ static void CursorCB_FieldMove(u8 taskId)
     }
     else
     {
+        // Pokemon Tuxedo: Skip badge check for Cut, Rock Smash, and Waterfall
+        bool8 skipBadgeCheck = (fieldMove == FIELD_MOVE_CUT || 
+                                fieldMove == FIELD_MOVE_ROCK_SMASH || 
+                                fieldMove == FIELD_MOVE_WATERFALL);
+        
         // All field moves before WATERFALL are HMs.
-        if (fieldMove <= FIELD_MOVE_WATERFALL && FlagGet(FLAG_BADGE01_GET + fieldMove) != TRUE)
+        if (!skipBadgeCheck && fieldMove <= FIELD_MOVE_WATERFALL && FlagGet(FLAG_BADGE01_GET + fieldMove) != TRUE)
         {
             DisplayPartyMenuMessage(gText_CantUseUntilNewBadge, TRUE);
             gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
