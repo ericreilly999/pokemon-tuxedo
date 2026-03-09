@@ -13,8 +13,8 @@
  */
 
 // Settings storage
-static u8 sBattleMode = BATTLE_MODE_SET;  // Default to SET
-static u8 sGameSpeed = 1;  // Default to 1x
+EWRAM_DATA static u8 sBattleMode = BATTLE_MODE_SET;  // Default to SET
+EWRAM_DATA static u8 sGameSpeed = 1;  // Default to 1x
 
 void SetBattleMode(u8 mode)
 {

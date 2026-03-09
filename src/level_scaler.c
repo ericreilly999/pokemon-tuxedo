@@ -1,28 +1,7 @@
 #include "global.h"
 #include "level_scaler.h"
 #include "pokemon_tuxedo.h"
-
-// Region starting levels as defined in requirements
-static const u8 sRegionStartingLevels[4] = {
-    2,   // REGION_KANTO
-    60,  // REGION_JOHTO
-    110, // REGION_HOENN
-    160  // REGION_SINNOH
-};
-
-/**
- * Get the starting level for a given region
- * 
- * @param region_id The region ID (0-3)
- * @return The starting level for that region
- */
-u8 GetRegionStartingLevel(u8 region_id)
-{
-    if (region_id >= 4)
-        return 2; // Default to Kanto starting level if invalid
-    
-    return sRegionStartingLevels[region_id];
-}
+#include "region_manager.h"
 
 /**
  * Calculate wild Pokemon level range based on badge count and region

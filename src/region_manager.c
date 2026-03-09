@@ -14,8 +14,8 @@ static const u8 sRegionStartingLevels[] = {
 
 // Save data structure for region tracking
 // These would be integrated into the actual save structure
-static u8 sCurrentRegion = REGION_KANTO;
-static bool8 sEliteFourDefeated[4] = {FALSE, FALSE, FALSE, FALSE};
+EWRAM_DATA static u8 sCurrentRegion = REGION_KANTO;
+EWRAM_DATA static bool8 sEliteFourDefeated[4] = {FALSE, FALSE, FALSE, FALSE};
 
 u8 GetCurrentRegion(void)
 {

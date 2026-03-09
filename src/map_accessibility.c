@@ -12,7 +12,7 @@
  * - 14.4: Kanto maintains linear progression
  */
 
-static bool8 sRegionMapsUnlocked[4] = {FALSE, FALSE, FALSE, FALSE};
+EWRAM_DATA static bool8 sRegionMapsUnlocked[4] = {FALSE, FALSE, FALSE, FALSE};
 
 void UnlockRegionMaps(u8 region_id)
 {

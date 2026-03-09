@@ -15,7 +15,7 @@
 #define MAX_FLY_LOCATIONS 50
 
 // Save data structure for fly location discovery
-static bool8 sDiscoveredFlyLocations[MAX_FLY_LOCATIONS] = {FALSE};
+EWRAM_DATA static bool8 sDiscoveredFlyLocations[MAX_FLY_LOCATIONS] = {FALSE};
 
 void DiscoverFlyLocation(u16 map_id)
 {
