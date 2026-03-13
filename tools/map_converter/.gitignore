@@ -1,0 +1,7 @@
+*.exe
+*.o
+*.obj
+map_converter
+test_converter
+output_map.json
+test_output.json
