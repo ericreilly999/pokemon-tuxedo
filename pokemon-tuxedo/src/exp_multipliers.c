@@ -4,21 +4,6 @@
 #include "constants/items.h"
 #include "constants/hold_effects.h"
 
-/* Custom Tuxedo EXP multiplier items - not yet added to pokeemerald item tables */
-/* These are defined here as stubs until pokeemerald's items.h includes them */
-#ifndef ITEM_MYSTIC_EGG
-#define ITEM_MYSTIC_EGG ITEM_NONE
-#endif
-#ifndef ITEM_MAGIC_EGG
-#define ITEM_MAGIC_EGG ITEM_NONE
-#endif
-#ifndef HOLD_EFFECT_MYSTIC_EGG
-#define HOLD_EFFECT_MYSTIC_EGG HOLD_EFFECT_LUCKY_EGG
-#endif
-#ifndef HOLD_EFFECT_MAGIC_EGG
-#define HOLD_EFFECT_MAGIC_EGG HOLD_EFFECT_LUCKY_EGG
-#endif
-
 /* pokeemerald uses GetItemHoldEffect; pokefirered used ItemId_GetHoldEffect */
 #define ItemId_GetHoldEffect(item) GetItemHoldEffect(item)
 
@@ -32,22 +17,31 @@
  * - 11.7: Priority: Magic Egg (4x) > Mystic Egg (3x) > Lucky Egg (2x)
  */
 
-u8 GetActiveExpMultiplier(void)
+/*
+ * B1 fix: holdEffect is the hold effect of the gaining Pokemon's held item.
+ * When holdEffect == HOLD_EFFECT_LUCKY_EGG and the bag contains only a Lucky
+ * Egg (2x tier), that tier is skipped so the vanilla 1.5x held-item bonus
+ * already applied in ApplyExperienceMultipliers is not compounded with the 2x
+ * bag bonus.  The 3x (Mystic Egg) and 4x (Magic Egg) bag tiers are strictly
+ * higher than the 1.5x held effect and always override it.
+ */
+u8 GetActiveExpMultiplier(u8 holdEffect)
 {
     /* Check in priority order (highest to lowest) */
     if (CheckBagHasItem(ITEM_MAGIC_EGG, 1))
         return 4;
     else if (CheckBagHasItem(ITEM_MYSTIC_EGG, 1))
         return 3;
-    else if (CheckBagHasItem(ITEM_LUCKY_EGG, 1))
-        return 2;
+    else if (CheckBagHasItem(ITEM_LUCKY_EGG, 1)
+             && holdEffect != HOLD_EFFECT_LUCKY_EGG)
+        return 2;  /* Skip 2x bag if held Lucky Egg already gives 1.5x */
     else
-        return 1;  /* No multiplier */
+        return 1;  /* No additional multiplier */
 }
 
 u32 ApplyExpMultiplier(u32 base_exp)
 {
-    u8 multiplier = GetActiveExpMultiplier();
+    u8 multiplier = GetActiveExpMultiplier(HOLD_EFFECT_NONE);
     return base_exp * multiplier;
 }
 

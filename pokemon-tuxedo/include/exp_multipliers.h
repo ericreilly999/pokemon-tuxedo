@@ -12,8 +12,10 @@
 // REGION_KANTO, REGION_HOENN, REGION_JOHTO
 // Note: REGION_SINNOH is descoped per ADR-003
 
-// EXP multiplier functions
-u8 GetActiveExpMultiplier(void);
+/* EXP multiplier functions.
+   holdEffect: the hold effect of the gaining Pokemon's held item.  Pass
+   HOLD_EFFECT_NONE when not called from a per-Pokemon context. */
+u8 GetActiveExpMultiplier(u8 holdEffect);
 u32 ApplyExpMultiplier(u32 base_exp);
 u32 SafeApplyExpMultiplier(u32 base_exp, u16 held_item);
 

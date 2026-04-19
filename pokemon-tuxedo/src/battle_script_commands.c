@@ -11847,13 +11847,14 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
         *expAmount = (*expAmount * 150) / 100;
 
-    /* DEV-024 / Req 9: Apply custom egg multiplier items from bag.
+    /* DEV-024 / Req 9 / B1: Apply custom egg multiplier items from bag.
        Priority: Magic Egg (4x) > Mystic Egg (3x) > Lucky Egg (2x, bag version).
        Only the highest applies (GetActiveExpMultiplier returns highest).
-       Lucky Egg as a held item is already handled above at 1.5x per vanilla formula.
-       These bag items use integer multiply directly: 2x, 3x, or 4x as specified. */
+       Lucky Egg held item is already handled above at 1.5x per vanilla formula.
+       Pass holdEffect so GetActiveExpMultiplier can skip the 2x bag tier when
+       the held Lucky Egg already provided its 1.5x bonus (B1 fix). */
     {
-        u8 tuxedo_mult = GetActiveExpMultiplier();
+        u8 tuxedo_mult = GetActiveExpMultiplier((u8)holdEffect);
         if (tuxedo_mult > 1)
             *expAmount = (*expAmount) * (s32)tuxedo_mult;
     }

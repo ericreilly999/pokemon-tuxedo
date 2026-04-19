@@ -621,7 +621,9 @@ struct SaveBlock2
 #endif //FREE_RECORD_MIXING_HALL_RECORDS
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
-}; // sizeof=0xF2C
+    /* DEV-027 / B4: Chosen Kanto starter persisted across power cycles. */
+    u16 chosenKantoStarter;
+}; /* sizeof=0xF2E (2 bytes added) */
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
 

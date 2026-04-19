@@ -362,7 +362,8 @@ static void BuildNormalStartMenu(void)
     AddStartMenuAction(MENU_ACTION_PLAYER);
     AddStartMenuAction(MENU_ACTION_SAVE);
     AddStartMenuAction(MENU_ACTION_OPTION);
-    /* DEV-025: PC storage accessible from field pause menu (Req 15) */
+    /* DEV-025: Settings and PC storage accessible from field pause menu (Req 11, Req 15) */
+    AddStartMenuAction(MENU_ACTION_SETTINGS);
     AddStartMenuAction(MENU_ACTION_PC);
     AddStartMenuAction(MENU_ACTION_EXIT);
 }

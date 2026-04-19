@@ -98,6 +98,9 @@ void SyncRegionStateFromFlags(void)
     /* Sync region unlock flags */
     sRegionState.hoenn_unlocked = FlagGet(FLAG_HOENN_UNLOCKED);
     sRegionState.johto_unlocked = FlagGet(FLAG_JOHTO_UNLOCKED);
+
+    /* B4: Restore chosen Kanto starter from save block on every load. */
+    sChosenKantoStarter = gSaveBlock2Ptr->chosenKantoStarter;
 }
 
 /**
@@ -707,6 +710,8 @@ bool8 UseRegionTicket(u16 ticket_item)
 void SetChosenKantoStarter(u16 species)
 {
     sChosenKantoStarter = species;
+    /* B4: Persist to save block so value survives power cycles. */
+    gSaveBlock2Ptr->chosenKantoStarter = species;
 }
 
 /*

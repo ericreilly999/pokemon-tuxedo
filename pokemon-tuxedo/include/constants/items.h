@@ -1051,6 +1051,10 @@ enum __attribute__((packed)) Item
     ITEM_TATSUGIRINITE = 872,
     ITEM_GLIMMORANITE = 873,
 
+    /* Pokemon Tuxedo custom EXP multiplier bag items (DEV-024 / B2 / Req 9) */
+    ITEM_MYSTIC_EGG = 874,
+    ITEM_MAGIC_EGG = 875,
+
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,
 };

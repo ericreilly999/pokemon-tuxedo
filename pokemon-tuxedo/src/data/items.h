@@ -15828,6 +15828,43 @@ const struct ItemInfo gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
+
+    /* Pokemon Tuxedo custom EXP multiplier bag items (B2 / Req 9) */
+    [ITEM_MYSTIC_EGG] =
+    {
+        .name = ITEM_NAME("Mystic Egg"),
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_MYSTIC_EGG,
+        .description = COMPOUND_STRING(
+            "A mysterious egg\n"
+            "that boosts Exp.\n"
+            "points by 3x."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_HELD_ITEM,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 30,
+        .iconPic = gItemIcon_LuckyEgg,
+        .iconPalette = gItemIconPalette_LuckyEgg,
+    },
+
+    [ITEM_MAGIC_EGG] =
+    {
+        .name = ITEM_NAME("Magic Egg"),
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_MAGIC_EGG,
+        .description = COMPOUND_STRING(
+            "A magical egg\n"
+            "that boosts Exp.\n"
+            "points by 4x."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_HELD_ITEM,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 30,
+        .iconPic = gItemIcon_LuckyEgg,
+        .iconPalette = gItemIconPalette_LuckyEgg,
+    },
 };
 
 #undef ITEM_NAME

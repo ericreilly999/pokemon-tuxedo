@@ -140,6 +140,9 @@ enum __attribute__((packed)) HoldEffect
     HOLD_EFFECT_OGERPON_MASK,
     // Gen2 hold effect
     HOLD_EFFECT_BERSERK_GENE,
+    /* Pokemon Tuxedo custom hold effects for Mystic/Magic Egg bag items (B2 / Req 9) */
+    HOLD_EFFECT_MYSTIC_EGG,
+    HOLD_EFFECT_MAGIC_EGG,
     HOLD_EFFECT_COUNT
 };
 

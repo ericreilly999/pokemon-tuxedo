@@ -47,6 +47,7 @@
 #include "field_name_box.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_setup.h"
+#include "region_manager.h"
 #include "constants/event_objects.h"
 #include "constants/game_stat.h"
 #include "constants/items.h"
@@ -962,6 +963,8 @@ static void CB2_GiveStarter(void)
 
     *GetVarPointer(VAR_STARTER_MON) = gSpecialVar_Result;
     starterMon = GetStarterPokemon(gSpecialVar_Result);
+    /* DEV-027 / B3: Record chosen Kanto starter so post-E4 distribution excludes it. */
+    SetChosenKantoStarter(starterMon);
     ScriptGiveMon(starterMon, 5, ITEM_NONE);
     ResetTasks();
     PlayBattleBGM();
