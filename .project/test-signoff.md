@@ -231,3 +231,178 @@ Previously-conditional gaps closed by commits delivered 2026-04-18:
 - Req 17.4 (Hoenn Map Completeness): `test/test_hoenn_map_completeness.py` — asserts exactly 104 Hoenn maps in `data/maps/`.
 
 QA-001 is marked `[x]`. Project Manager: QA-001 is complete. DEV-008 dependency on QA-001 is now unblocked.
+
+---
+
+## QA-007 through QA-012 — QoL and Feature Gap Tests
+
+**Date:** 2026-04-19
+**Cycle:** QA-007 through QA-012 formal sign-off
+**Commit:** 1924a8773
+**Status:** APPROVED
+
+Tests written pre-implementation from the spec (Reqs 9, 11, 12, 13, 14, 15). Implementations delivered in DEV-022 through DEV-027 on master. CI green on every master push.
+
+---
+
+### Test Inventory: QA-007 through QA-012
+
+| QA Task | Requirement | Test File | Properties | Iterations |
+|---------|-------------|-----------|-----------|-----------|
+| QA-007 | Req 9 — EXP multiplier items | `test/test_exp_multipliers.py` | 8 | 100+ each |
+| QA-008 | Req 11 — Game settings UI | `test/test_game_settings.py` | 6 | 100+ each |
+| QA-009 | Req 12 — HM auto-clear | `test/test_hm_simplification.py` | 7 | 100+ each |
+| QA-010 | Req 13 — Trade evolution alternatives | `test/test_trade_evolutions.py` | 5 | 100+ each |
+| QA-011 | Req 14 — Starter distribution post-E4 | `test/test_starter_distribution.py` | 6 | 100+ each |
+| QA-012 | Req 15 — PC from pause menu | `test/test_pc_pause_menu.py` | 5 | 100+ each |
+
+**Total: 37 properties across 6 files, 100+ iterations each.**
+
+---
+
+### Property Detail by File
+
+#### `test/test_exp_multipliers.py` — 8 properties (Req 9)
+
+| Property | Description |
+|----------|-------------|
+| Lucky Egg x2 | Lucky Egg held item applies 2× multiplier to base EXP |
+| Mystic Egg x3 | Mystic Egg item applies 3× multiplier via GetActiveExpMultiplier |
+| Magic Egg x4 | Magic Egg item applies 4× multiplier via GetActiveExpMultiplier |
+| Highest wins | When multiple multiplier sources are present, highest value wins |
+| No egg unchanged | Without any held egg item, base EXP is unmodified |
+| Applied after party distribution | Multiplier is applied to the per-recipient share, not the pre-split pool |
+| Result >= 0 | EXP result is never negative for any valid input |
+| Result <= U32_MAX | EXP result does not overflow a 32-bit unsigned integer |
+
+#### `test/test_game_settings.py` — 6 properties (Req 11)
+
+| Property | Description |
+|----------|-------------|
+| Default battle_mode SET | Fresh save defaults to battle_mode = SET (not SHIFT) |
+| Toggle round-trips | Toggling battle_mode twice returns to original value |
+| Speed range 1–10 | Text speed setting only accepts values in [1, 10]; out-of-range is rejected or clamped |
+| Speed-1 normal | Speed value 1 corresponds to normal (unchanged) text speed |
+| Speed-N divides duration | Speed value N causes text duration to be divided by N |
+| Settings persist save/load | All settings survive a save/load round-trip unchanged |
+
+#### `test/test_hm_simplification.py` — 7 properties (Req 12)
+
+| Property | Description |
+|----------|-------------|
+| Cut tree clears | Cut HM field function returns TRUE for any map tile tagged as cuttable tree |
+| Rock Smash clears | Rock Smash field function returns TRUE for any smashable rock tile |
+| Waterfall passable | Waterfall field function returns TRUE; upward passage never blocked |
+| Flash not required | Flash field use returns TRUE; dark caves are navigable without Flash |
+| HMs still learnable | HM moves are still learnable as battle moves and behave normally in battle |
+| No party slot required | Field use of any simplified HM does not check party for move knowledge |
+| Global passability invariant | For all HM-clearable tile types, the unlock check always returns TRUE regardless of badge count, region, or party |
+
+#### `test/test_trade_evolutions.py` — 5 properties (Req 13)
+
+| Property | Description |
+|----------|-------------|
+| Trade evos trigger at 37 | Kadabra, Machoke, Graveler, Haunter each evolve at level 37 without trade |
+| No early evo at 36 | None of the affected species evolve at level 36; boundary is exact |
+| Normal evos unaffected | Non-trade-evo species (e.g. Pikachu → Raichu) are unchanged by this modification |
+| Item-conditioned evos need item at 37 | Poliwhirl (King's Rock), Slowpoke (King's Rock), Onix (Metal Coat), Scyther (Metal Coat), Seadra (Dragon Scale), Porygon (Up-Grade), Clamperl (Deep Sea Tooth / Deep Sea Scale) require both level 37 and the specified item |
+| Each evo produces correct species | Every evolution path produces the correct target species (not an off-by-one or wrong branch) |
+
+#### `test/test_starter_distribution.py` — 6 properties (Req 14)
+
+| Property | Description |
+|----------|-------------|
+| Kanto E4 awards unchosen starters | Defeating Kanto E4 awards the 2 Kanto starters not chosen at game start |
+| Chosen starter not re-awarded | The player's original Kanto starter is excluded from the award pool |
+| Hoenn E4 awards all 3 Hoenn starters | Defeating Hoenn E4 awards Treecko, Torchic, and Mudkip |
+| Johto E4 awards all 3 Johto starters | Defeating Johto E4 awards Chikorita, Cyndaquil, and Totodile |
+| Starters locked before E4 | Award flags are not set before E4 defeat; starters are not obtainable prematurely |
+| Pool sizes correct | Kanto pool size = 2; Hoenn pool size = 3; Johto pool size = 3 |
+
+#### `test/test_pc_pause_menu.py` — 5 properties (Req 15)
+
+| Property | Description |
+|----------|-------------|
+| PC option present in pause menu | Pause menu contains a PC option in both normal and debug start menu configurations |
+| PC opens storage system | Selecting the PC option launches the storage system UI without error |
+| Player position unchanged after exiting PC | Player map coordinates and facing direction are identical before and after a PC session |
+| PC available in field | PC option is present and functional when accessed from the overworld field |
+| PC absent in battle | PC option is not reachable or selectable during an active battle |
+
+---
+
+### Coverage Map: QA-007 through QA-012
+
+| Requirement | Sub-requirement | Covered By |
+|-------------|----------------|-----------|
+| Req 9 — EXP multipliers | Lucky Egg 2× | `test_exp_multipliers.py` prop Lucky Egg x2 |
+| Req 9 — EXP multipliers | Mystic Egg 3× | `test_exp_multipliers.py` prop Mystic Egg x3 |
+| Req 9 — EXP multipliers | Magic Egg 4× | `test_exp_multipliers.py` prop Magic Egg x4 |
+| Req 9 — EXP multipliers | Highest-wins arbitration | `test_exp_multipliers.py` prop Highest wins |
+| Req 9 — EXP multipliers | No egg = unchanged | `test_exp_multipliers.py` prop No egg unchanged |
+| Req 9 — EXP multipliers | Applied post-distribution | `test_exp_multipliers.py` prop Applied after party distribution |
+| Req 9 — EXP multipliers | No underflow / no overflow | `test_exp_multipliers.py` props Result >= 0, Result <= U32_MAX |
+| Req 11 — Game settings | Default battle_mode | `test_game_settings.py` prop Default battle_mode SET |
+| Req 11 — Game settings | Toggle round-trip | `test_game_settings.py` prop Toggle round-trips |
+| Req 11 — Game settings | Speed range validation | `test_game_settings.py` prop Speed range 1–10 |
+| Req 11 — Game settings | Speed-1 = normal | `test_game_settings.py` prop Speed-1 normal |
+| Req 11 — Game settings | Speed-N effect | `test_game_settings.py` prop Speed-N divides duration |
+| Req 11 — Game settings | Persistence | `test_game_settings.py` prop Settings persist save/load |
+| Req 12 — HM auto-clear | Cut passable | `test_hm_simplification.py` prop Cut tree clears |
+| Req 12 — HM auto-clear | Rock Smash passable | `test_hm_simplification.py` prop Rock Smash clears |
+| Req 12 — HM auto-clear | Waterfall passable | `test_hm_simplification.py` prop Waterfall passable |
+| Req 12 — HM auto-clear | Flash not required | `test_hm_simplification.py` prop Flash not required |
+| Req 12 — HM auto-clear | HMs still battle moves | `test_hm_simplification.py` prop HMs still learnable |
+| Req 12 — HM auto-clear | No party check | `test_hm_simplification.py` prop No party slot required |
+| Req 12 — HM auto-clear | Global passability | `test_hm_simplification.py` prop Global passability invariant |
+| Req 13 — Trade evolutions | Level 37 trigger | `test_trade_evolutions.py` prop Trade evos trigger at 37 |
+| Req 13 — Trade evolutions | Boundary exact at 36 | `test_trade_evolutions.py` prop No early evo at 36 |
+| Req 13 — Trade evolutions | Normal evos unaffected | `test_trade_evolutions.py` prop Normal evos unaffected |
+| Req 13 — Trade evolutions | Item-conditioned paths | `test_trade_evolutions.py` prop Item-conditioned evos need item at 37 |
+| Req 13 — Trade evolutions | Correct target species | `test_trade_evolutions.py` prop Each evo produces correct species |
+| Req 14 — Starter distribution | Kanto unchosen award | `test_starter_distribution.py` prop Kanto E4 awards unchosen starters |
+| Req 14 — Starter distribution | Chosen excluded | `test_starter_distribution.py` prop Chosen starter not re-awarded |
+| Req 14 — Starter distribution | Hoenn E4 award | `test_starter_distribution.py` prop Hoenn E4 awards all 3 Hoenn starters |
+| Req 14 — Starter distribution | Johto E4 award | `test_starter_distribution.py` prop Johto E4 awards all 3 Johto starters |
+| Req 14 — Starter distribution | Pre-E4 lock | `test_starter_distribution.py` prop Starters locked before E4 |
+| Req 14 — Starter distribution | Pool sizes | `test_starter_distribution.py` prop Pool sizes correct |
+| Req 15 — PC from pause menu | Menu presence | `test_pc_pause_menu.py` prop PC option present in pause menu |
+| Req 15 — PC from pause menu | Opens storage | `test_pc_pause_menu.py` prop PC opens storage system |
+| Req 15 — PC from pause menu | Position preserved | `test_pc_pause_menu.py` prop Player position unchanged after exiting PC |
+| Req 15 — PC from pause menu | Available in field | `test_pc_pause_menu.py` prop PC available in field |
+| Req 15 — PC from pause menu | Absent in battle | `test_pc_pause_menu.py` prop PC absent in battle |
+
+---
+
+### CI Evidence
+
+Tests run via `python -m pytest test/` in `.github/workflows/build.yml` on every push to master and on every PR. The pipeline executes the full pytest suite; no individual file is skipped.
+
+All 70 properties (37 from QA-007–QA-012 + 33 from prior cycles) pass on master as of commit 1924a8773. CI is green. No flaky tests observed. All properties use fixed seeds or enumerated inputs for determinism.
+
+---
+
+### Cumulative Test Count
+
+| Cycle | Tests | Status |
+|-------|-------|--------|
+| QA-003 / QA-004 / QA-005 (Reqs 22–24) | 23 properties | APPROVED 2026-04-18 |
+| QA-001 (Req 17 + Hoenn completeness) | 33 pytest tests (includes above) | APPROVED 2026-04-18 |
+| QA-007–QA-012 (Reqs 9, 11, 12, 13, 14, 15) | 37 properties (new) | APPROVED 2026-04-19 |
+| **Running total** | **70 tests / properties** | **All passing** |
+
+---
+
+### Open Items
+
+- **QA-006** — Live emulator validation of Reqs 22–25 (rival formula, ace bonus, ticket travel, Crossroads trigger removal). Requires emulator testing against a compiled ROM. Depends on DEV-016, DEV-017, DEV-018, DEV-019. Status: pending. This sign-off does not substitute for QA-006.
+
+The 37 properties signed off here cover Reqs 9, 11, 12, 13, 14, 15 at the logic-model level (Python spec models, property-based, pre-implementation). They do not substitute for QA-006 live ROM validation.
+
+---
+
+### QA-007 through QA-012 Sign-Off Decision
+
+APPROVED. 70/70 tests passing (37 new + 33 prior). CI green on master (commit 1924a8773). Full regression suite clean. Implementations DEV-022 through DEV-027 are on master. Ready to proceed.
+
+Project Manager: QA-007 through QA-012 are complete. QA-006 (live emulator validation, Reqs 22–25) remains the only open QA item.
