@@ -171,14 +171,15 @@ jobs:
           DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
           ROM=pokefirered_modern.gba
           SIZE=$(stat -c%s "$ROM")
-          LOG=".project/deployment-log.md"
-
-          printf '\n## Deploy — %s\n\n| Field | Value |\n|-------|-------|\n| Commit | `%s` |\n| Run | [%s](https://github.com/${{ github.repository }}/actions/runs/%s) |\n| Actor | %s |\n| ROM size | %s bytes |\n| S3 key | s3://pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba |\n| Result | SUCCESS |\n' \
-            "$DATE" "$GH_SHA" "$GH_RUN_ID" "$GH_RUN_ID" "$GH_ACTOR" "$SIZE" \
-            >> "$LOG"
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "$LOG"
-          git diff --cached --quiet || git commit -m "chore: log deployment ${GH_SHA:0:8} [skip ci]"
-          git push
+          {
+            echo "## Deploy — ${DATE}"
+            echo ""
+            echo "| Field | Value |"
+            echo "|-------|-------|"
+            echo "| Commit | \`${GH_SHA}\` |"
+            echo "| Run | [${GH_RUN_ID}](https://github.com/${{ github.repository }}/actions/runs/${GH_RUN_ID}) |"
+            echo "| Actor | ${GH_ACTOR} |"
+            echo "| ROM size | ${SIZE} bytes |"
+            echo "| S3 key | s3://pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba |"
+            echo "| Result | SUCCESS |"
+          } >> "$GITHUB_STEP_SUMMARY"
