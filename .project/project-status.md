@@ -1,54 +1,47 @@
 # Project Status — Pokemon Tuxedo
 
-**Last Updated:** 2026-04-18  
-**Current Stage:** Stage 2 — Development (BLOCKED)  
+**Last Updated:** 2026-04-19  
+**Current Stage:** Stage 5 — QA Validation  
 **Route-to-Live:** Simple (dev → release ROM)
 
 ---
 
 ## Summary
 
-Pokemon Tuxedo is a Pokemon FireRed ROM hack with multi-region progression (Kanto → Hoenn → Johto), dynamic level scaling, and QoL improvements. The project has significant real progress — custom game systems exist, 533 maps are present, and a format converter toolchain is in place — but the codebase accumulated 25+ contradictory status documents, a broken build, and a new consolidation spec that was written but never executed. The project needs a clean reset of its tracking structure and a focused sprint to fix the build, then execute the consolidation.
-
----
-
-## What's Actually True (Ground Truth)
-
-| Item | Claimed | Reality |
-|------|---------|---------|
-| Phases 1–4 complete | tasks.md says [x] | Phase 1–2 real. Phase 3 partially real. Phase 4 **false** — build is broken |
-| 5426+ tests passing | README claims 100% | Python tests exist; C property tests exist; **none confirmed passing against a working build** |
-| ROM successfully built | BUILD_SUCCESS.md | **False** — build.log shows compilation error in system_integration.c |
-| Hoenn port complete | Tasks [x] | 533 maps in data/maps/, pokemon-crossroads/ has Hoenn data — **likely true** |
-| Consolidation complete | Not claimed | Consolidation spec exists, **zero work done** |
+Pokemon Tuxedo is a Pokemon FireRed ROM hack with multi-region progression (Kanto → Hoenn → Johto), dynamic level scaling, and QoL improvements. The implementation sprint (PR #1) is now merged to master. The build is clean, all 31 property-based tests pass in CI, and the ROM artifact is being uploaded to S3 on every master push. Open items are QA sign-off passes and the eventual Johto integration.
 
 ---
 
 ## What Just Completed
 
-- Phase 1: Format converter toolchain (map_converter tools, Python converters) ✅
-- Phase 2: Hoenn map data conversion (104 maps in data/maps/ + pokemon-crossroads) ✅
-- Phase 3: Custom Tuxedo source files written and placed in src/ ✅ (but build broken)
-- Consolidation requirements spec written ✅
+- **PR #1 merged** (SHA b62ccb8e3) — full implementation sprint including:
+  - Build fix: system_integration.c compilation error resolved
+  - Hoenn map integration: 104 maps with complete stub headers (all CI errors resolved)
+  - Custom Tuxedo systems: all 9 source files wired into build
+  - Rival scaling (Req 22): Champion-slot vs encounter-slot dual formula, GetPlayerTop3Average()
+  - Ace Pokemon bonus (Req 23): last party slot at avg+4, clamped to 100
+  - Region travel (Req 24): reusable Hoenn/Johto tickets + Fly registration
+  - Crossroads travel mechanism removed (Req 25)
+  - CI/CD: GitHub Actions builds ROM, runs 31 Python tests, uploads to S3 on master push
+  - Terraform: S3 bucket + IAM CI user provisioned
+  - Code review: all BLOCKING findings resolved, approved and merged
 
 ---
 
-## What's In Progress / Blocked
+## What's In Progress
 
-- **BLOCKER**: `src/system_integration.c:123` — `too many arguments to function 'SetEliteFourDefeated'`
-  - Prevents ROM from building
-  - Must be fixed before any other progress is meaningful
-  - Owner: Application Engineer (DEV-001, DEV-002)
+- **Master CI run 24618281043** — building ROM and uploading `pokemon-tuxedo-latest.gba` to S3 bucket `pokemon-tuxedo-releases`
+- **QA-001** — formal sign-off on all 14 named properties + Hoenn map completeness (31 pass in CI; formal task sign-off pending)
 
 ---
 
 ## What's Coming Next
 
-1. Fix build error (DEV-001, DEV-002)
-2. Execute codebase consolidation (DEV-003 through DEV-008): rename pokemon-crossroads → pokemon-tuxedo, copy Tuxedo systems in, verify ROM builds from single directory
-3. Confirm test suite passes (QA-001)
-4. Clean up 25+ obsolete documentation files (DEV-008)
-5. Phase 5: Johto integration from CrystalDust (DEV-009 onward)
+1. Confirm master CI passes and S3 artifact is live
+2. QA-001: QA Engineer formal sign-off on full property suite in consolidated codebase
+3. QA-006: Live emulator validation — rival formula, ace bonus, travel system in running ROM
+4. DEV-008: Root directory cleanup — delete 25 obsolete checkpoint/status docs (gated on QA-001)
+5. Phase 5: Johto integration from CrystalDust (DEV-009 onward — deferred)
 
 ---
 
@@ -56,15 +49,15 @@ Pokemon Tuxedo is a Pokemon FireRed ROM hack with multi-region progression (Kant
 
 | Risk | Impact | Status |
 |------|--------|--------|
-| Build error may be deeper than one bad function call | High | Active — investigate after DEV-001 |
-| "5426+ tests passing" claim unverified | High | Will be confirmed at QA-001 |
-| Two specs in .kiro/specs/ with different scopes — developers may not know which is authoritative | Medium | Consolidation spec supersedes full-regions spec for current work; tracked in ADR-006 |
-| pokemon-crossroads is pokeemerald-based; root is pokefirered-based — cross-engine merge is non-trivial | High | Core risk of consolidation; Application Engineer must resolve symbol conflicts |
-| No custom character sprites yet (Prof. Nana, Mister Mango) | Low | Placeholder sprites needed; deferred to Phase 6 |
-| Johto (CrystalDust) integration is untested | Medium | Phase 5 work — not yet started |
+| QA-006 emulator validation not yet done | High | Active — rival formula, ace, travel untested in live ROM |
+| full_party_exp.c is a stub (Req 10 undelivered) | Medium | Tracked in TODO.md; deferred — not blocking current milestone |
+| Johto (CrystalDust) integration untested | Medium | Phase 5 work — not started |
+| No custom character sprites (Prof. Nana, Mister Mango) | Low | Deferred to Phase 6 |
+| CI Log deployment step uses git push — fails if branch protection enabled | Low | No branch protection currently; DevOps advisory |
+| Johto ticket DoWarp to MAP_UNDEFINED if Johto obtained pre-Johto maps | Low | Tickets can't be obtained in-game until Johto maps exist |
 
 ---
 
-## Documentation Debt (to be cleaned up at DEV-008)
+## Documentation Debt
 
-25 obsolete status/checkpoint documents at repo root that are contradictory. Will be deleted after QA-001 confirms green tests.
+25 obsolete checkpoint/status docs at repo root scheduled for deletion at DEV-008 (after QA-001 green).
