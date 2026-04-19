@@ -89,7 +89,7 @@ jobs:
       # failure, not a warning.
       - name: Validate ROM size
         run: |
-          ROM=pokefirered.gba
+          ROM=pokefirered_modern.gba
           if [ ! -f "$ROM" ]; then
             echo "ERROR: $ROM not found — build may have failed silently."
             exit 1
@@ -126,7 +126,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pokefirered-${{ github.sha }}
-          path: pokefirered.gba
+          path: pokefirered_modern.gba
           retention-days: 30
           if-no-files-found: error
 
@@ -151,7 +151,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           echo "Uploading ROM to S3..."
-          aws s3 cp pokefirered.gba \
+          aws s3 cp pokefirered_modern.gba \
             s3://pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba \
             --no-progress
           echo "Upload complete: s3://pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba"
@@ -169,7 +169,7 @@ jobs:
           GH_ACTOR: ${{ github.actor }}
         run: |
           DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          ROM=pokefirered.gba
+          ROM=pokefirered_modern.gba
           SIZE=$(stat -c%s "$ROM")
           LOG=".project/deployment-log.md"
 
