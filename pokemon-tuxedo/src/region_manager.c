@@ -6,21 +6,21 @@
 #include "constants/flags.h"
 #include "constants/maps.h"
 
-// Placeholder for MAP_NEW_BARK_TOWN until Johto maps are integrated
-// This will be replaced by the auto-generated constant when Johto is added
+/* Placeholder for MAP_NEW_BARK_TOWN until Johto maps are integrated.
+   This will be replaced by the auto-generated constant when Johto is added. */
 #ifndef MAP_NEW_BARK_TOWN
 #define MAP_NEW_BARK_TOWN MAP_UNDEFINED
 #endif
 
-// Region starting levels (from requirements)
-// Updated for new progression: Kanto → Hoenn → Johto (ADR-004)
+/* Region starting levels (from requirements).
+   Updated for new progression: Kanto -> Hoenn -> Johto (ADR-004). */
 static const u8 sRegionStartingLevels[] = {
-    2,    // REGION_KANTO
-    60,   // REGION_HOENN (unlocked after Kanto E4)
-    110   // REGION_JOHTO (unlocked after Hoenn E4)
+    2,    /* REGION_KANTO */
+    60,   /* REGION_HOENN (unlocked after Kanto E4) */
+    110   /* REGION_JOHTO (unlocked after Hoenn E4) */
 };
 
-// Global region state - stored in EWRAM for save data integration
+/* Global region state - stored in EWRAM for save data integration */
 EWRAM_DATA static struct RegionState sRegionState = {0};
 
 /**
@@ -30,18 +30,18 @@ EWRAM_DATA static struct RegionState sRegionState = {0};
 void InitRegionState(void)
 {
     u8 i, j;
-    
+
     sRegionState.current_region = REGION_KANTO;
     sRegionState.hoenn_unlocked = FALSE;
     sRegionState.johto_unlocked = FALSE;
-    
-    // Clear Elite Four defeated flags
+
+    /* Clear Elite Four defeated flags */
     for (i = 0; i < NUM_REGIONS; i++)
     {
         sRegionState.elite_four_defeated[i] = FALSE;
     }
-    
-    // Clear all badges
+
+    /* Clear all badges */
     for (j = 0; j < BADGES_PER_REGION; j++)
     {
         sRegionState.badges.kanto_badges[j] = FALSE;
@@ -56,7 +56,7 @@ void InitRegionState(void)
  */
 void SyncRegionStateFromFlags(void)
 {
-    // Sync Kanto badges
+    /* Sync Kanto badges */
     sRegionState.badges.kanto_badges[0] = FlagGet(FLAG_BADGE01_GET);
     sRegionState.badges.kanto_badges[1] = FlagGet(FLAG_BADGE02_GET);
     sRegionState.badges.kanto_badges[2] = FlagGet(FLAG_BADGE03_GET);
@@ -65,8 +65,8 @@ void SyncRegionStateFromFlags(void)
     sRegionState.badges.kanto_badges[5] = FlagGet(FLAG_BADGE06_GET);
     sRegionState.badges.kanto_badges[6] = FlagGet(FLAG_BADGE07_GET);
     sRegionState.badges.kanto_badges[7] = FlagGet(FLAG_BADGE08_GET);
-    
-    // Sync Hoenn badges
+
+    /* Sync Hoenn badges */
     sRegionState.badges.hoenn_badges[0] = FlagGet(FLAG_HOENN_BADGE01_GET);
     sRegionState.badges.hoenn_badges[1] = FlagGet(FLAG_HOENN_BADGE02_GET);
     sRegionState.badges.hoenn_badges[2] = FlagGet(FLAG_HOENN_BADGE03_GET);
@@ -75,8 +75,8 @@ void SyncRegionStateFromFlags(void)
     sRegionState.badges.hoenn_badges[5] = FlagGet(FLAG_HOENN_BADGE06_GET);
     sRegionState.badges.hoenn_badges[6] = FlagGet(FLAG_HOENN_BADGE07_GET);
     sRegionState.badges.hoenn_badges[7] = FlagGet(FLAG_HOENN_BADGE08_GET);
-    
-    // Sync Johto badges
+
+    /* Sync Johto badges */
     sRegionState.badges.johto_badges[0] = FlagGet(FLAG_JOHTO_BADGE01_GET);
     sRegionState.badges.johto_badges[1] = FlagGet(FLAG_JOHTO_BADGE02_GET);
     sRegionState.badges.johto_badges[2] = FlagGet(FLAG_JOHTO_BADGE03_GET);
@@ -85,13 +85,13 @@ void SyncRegionStateFromFlags(void)
     sRegionState.badges.johto_badges[5] = FlagGet(FLAG_JOHTO_BADGE06_GET);
     sRegionState.badges.johto_badges[6] = FlagGet(FLAG_JOHTO_BADGE07_GET);
     sRegionState.badges.johto_badges[7] = FlagGet(FLAG_JOHTO_BADGE08_GET);
-    
-    // Sync Elite Four defeated flags
+
+    /* Sync Elite Four defeated flags */
     sRegionState.elite_four_defeated[REGION_KANTO] = FlagGet(FLAG_KANTO_ELITE_FOUR_DEFEATED);
     sRegionState.elite_four_defeated[REGION_HOENN] = FlagGet(FLAG_HOENN_ELITE_FOUR_DEFEATED);
     sRegionState.elite_four_defeated[REGION_JOHTO] = FlagGet(FLAG_JOHTO_ELITE_FOUR_DEFEATED);
-    
-    // Sync region unlock flags
+
+    /* Sync region unlock flags */
     sRegionState.hoenn_unlocked = FlagGet(FLAG_HOENN_UNLOCKED);
     sRegionState.johto_unlocked = FlagGet(FLAG_JOHTO_UNLOCKED);
 }
@@ -130,10 +130,12 @@ void SetCurrentRegion(u8 region_id)
  */
 u8 GetRegionBadgeCount(u8 region_id)
 {
-    u8 count = 0;
+    u8 count;
     u8 i;
     bool8 *badges;
-    
+
+    count = 0;
+
     switch (region_id)
     {
     case REGION_KANTO:
@@ -148,13 +150,13 @@ u8 GetRegionBadgeCount(u8 region_id)
     default:
         return 0;
     }
-    
+
     for (i = 0; i < BADGES_PER_REGION; i++)
     {
         if (badges[i])
             count++;
     }
-    
+
     return count;
 }
 
@@ -175,9 +177,11 @@ u8 GetTotalBadgeCount(void)
  */
 u8 GetBadgeCount(void)
 {
-    u8 count = 0;
-    
-    // Count Kanto badges using original flags for backward compatibility
+    u8 count;
+
+    count = 0;
+
+    /* Count Kanto badges using original flags for backward compatibility */
     if (FlagGet(FLAG_BADGE01_GET)) count++;
     if (FlagGet(FLAG_BADGE02_GET)) count++;
     if (FlagGet(FLAG_BADGE03_GET)) count++;
@@ -186,7 +190,7 @@ u8 GetBadgeCount(void)
     if (FlagGet(FLAG_BADGE06_GET)) count++;
     if (FlagGet(FLAG_BADGE07_GET)) count++;
     if (FlagGet(FLAG_BADGE08_GET)) count++;
-    
+
     return count;
 }
 
@@ -200,7 +204,7 @@ bool8 HasBadge(u8 region_id, u8 badge_index)
 {
     if (badge_index >= BADGES_PER_REGION)
         return FALSE;
-    
+
     switch (region_id)
     {
     case REGION_KANTO:
@@ -223,12 +227,12 @@ void AwardBadge(u8 region_id, u8 badge_index)
 {
     if (badge_index >= BADGES_PER_REGION)
         return;
-    
+
     switch (region_id)
     {
     case REGION_KANTO:
         sRegionState.badges.kanto_badges[badge_index] = TRUE;
-        // Also set the original flag for backward compatibility
+        /* Also set the original flag for backward compatibility */
         switch (badge_index)
         {
         case 0: FlagSet(FLAG_BADGE01_GET); break;
@@ -243,7 +247,7 @@ void AwardBadge(u8 region_id, u8 badge_index)
         break;
     case REGION_HOENN:
         sRegionState.badges.hoenn_badges[badge_index] = TRUE;
-        // Set Hoenn badge flags for persistence
+        /* Set Hoenn badge flags for persistence */
         switch (badge_index)
         {
         case 0: FlagSet(FLAG_HOENN_BADGE01_GET); break;
@@ -258,7 +262,7 @@ void AwardBadge(u8 region_id, u8 badge_index)
         break;
     case REGION_JOHTO:
         sRegionState.badges.johto_badges[badge_index] = TRUE;
-        // Set Johto badge flags for persistence
+        /* Set Johto badge flags for persistence */
         switch (badge_index)
         {
         case 0: FlagSet(FLAG_JOHTO_BADGE01_GET); break;
@@ -283,7 +287,7 @@ bool8 IsEliteFourDefeated(u8 region_id)
 {
     if (region_id >= NUM_REGIONS)
         return FALSE;
-    
+
     return sRegionState.elite_four_defeated[region_id];
 }
 
@@ -295,10 +299,10 @@ void SetEliteFourDefeated(u8 region_id)
 {
     if (region_id >= NUM_REGIONS)
         return;
-    
+
     sRegionState.elite_four_defeated[region_id] = TRUE;
-    
-    // Set flag for persistence
+
+    /* Set flag for persistence */
     switch (region_id)
     {
     case REGION_KANTO:
@@ -317,35 +321,37 @@ void SetEliteFourDefeated(u8 region_id)
  * Check Elite Four defeat and unlock the next region.
  * This is the main entry point for processing Elite Four defeat.
  * Should be called when the player defeats the Champion.
- * 
+ *
  * Progression sequence (per ADR-004):
- *   Kanto E4 defeat → Hoenn unlock
- *   Hoenn E4 defeat → Johto unlock
- *   Johto E4 defeat → No next region (Sinnoh descoped per ADR-003)
- * 
+ *   Kanto E4 defeat -> Hoenn unlock
+ *   Hoenn E4 defeat -> Johto unlock
+ *   Johto E4 defeat -> No next region (Sinnoh descoped per ADR-003)
+ *
  * @param region_id The region where Elite Four was defeated
  * @return TRUE if a new region was unlocked, FALSE otherwise
  */
 bool8 CheckEliteFourDefeatAndUnlock(u8 region_id)
 {
-    bool8 region_unlocked = FALSE;
-    
-    // Validate region ID
+    bool8 region_unlocked;
+
+    region_unlocked = FALSE;
+
+    /* Validate region ID */
     if (region_id >= NUM_REGIONS)
         return FALSE;
-    
-    // Check if already defeated (no need to process again)
+
+    /* Check if already defeated (no need to process again) */
     if (IsEliteFourDefeated(region_id))
         return FALSE;
-    
-    // Mark Elite Four as defeated
+
+    /* Mark Elite Four as defeated */
     SetEliteFourDefeated(region_id);
-    
-    // Unlock next region based on defeated region (ADR-004 sequence)
+
+    /* Unlock next region based on defeated region (ADR-004 sequence) */
     switch (region_id)
     {
     case REGION_KANTO:
-        // Kanto E4 defeated → Unlock Hoenn
+        /* Kanto E4 defeated -> Unlock Hoenn */
         if (!IsRegionUnlocked(REGION_HOENN))
         {
             UnlockRegion(REGION_HOENN);
@@ -353,7 +359,7 @@ bool8 CheckEliteFourDefeatAndUnlock(u8 region_id)
         }
         break;
     case REGION_HOENN:
-        // Hoenn E4 defeated → Unlock Johto
+        /* Hoenn E4 defeated -> Unlock Johto */
         if (!IsRegionUnlocked(REGION_JOHTO))
         {
             UnlockRegion(REGION_JOHTO);
@@ -361,10 +367,10 @@ bool8 CheckEliteFourDefeatAndUnlock(u8 region_id)
         }
         break;
     case REGION_JOHTO:
-        // No next region after Johto (Sinnoh descoped per ADR-003)
+        /* No next region after Johto (Sinnoh descoped per ADR-003) */
         break;
     }
-    
+
     return region_unlocked;
 }
 
@@ -378,7 +384,7 @@ bool8 IsRegionUnlocked(u8 region_id)
     switch (region_id)
     {
     case REGION_KANTO:
-        // Kanto is always unlocked (starting region)
+        /* Kanto is always unlocked (starting region) */
         return TRUE;
     case REGION_HOENN:
         return sRegionState.hoenn_unlocked;
@@ -397,7 +403,7 @@ bool8 IsRegionUnlocked(u8 region_id)
 void UnlockRegion(u8 region_id)
 {
     u16 ticket_item;
-    
+
     switch (region_id)
     {
     case REGION_HOENN:
@@ -421,7 +427,7 @@ void UnlockRegion(u8 region_id)
         }
         break;
     case REGION_KANTO:
-        // Kanto is always unlocked, nothing to do
+        /* Kanto is always unlocked, nothing to do */
         break;
     }
 }
@@ -435,7 +441,7 @@ u8 GetRegionStartingLevel(u8 region_id)
 {
     if (region_id >= NUM_REGIONS)
         return 2;
-    
+
     return sRegionStartingLevels[region_id];
 }
 
@@ -465,66 +471,66 @@ u16 GetRegionTicketItem(u8 region_id)
 bool8 CanTravelToRegion(u8 target_region)
 {
     u16 ticket_item;
-    
-    // Can always stay in current region
+
+    /* Can always stay in current region */
     if (target_region == sRegionState.current_region)
         return TRUE;
-    
-    // Kanto is always accessible (starting region)
+
+    /* Kanto is always accessible (starting region) */
     if (target_region == REGION_KANTO)
         return TRUE;
-    
-    // Check if region is unlocked
+
+    /* Check if region is unlocked */
     if (!IsRegionUnlocked(target_region))
         return FALSE;
-    
-    // Check if player has the ticket
+
+    /* Check if player has the ticket */
     ticket_item = GetRegionTicketItem(target_region);
     if (ticket_item == ITEM_NONE)
         return FALSE;
-    
+
     return CheckBagHasItem(ticket_item, 1);
 }
 
 /**
  * Award the next region ticket based on current region and Elite Four status.
  * Called after defeating Elite Four.
- * Progression: Kanto E4 → Hoenn Ticket, Hoenn E4 → Johto Ticket (ADR-004)
+ * Progression: Kanto E4 -> Hoenn Ticket, Hoenn E4 -> Johto Ticket (ADR-004)
  */
 void AwardRegionTicket(void)
 {
-    // Only award ticket if Elite Four defeated in current region
+    /* Only award ticket if Elite Four defeated in current region */
     if (!IsEliteFourDefeated(sRegionState.current_region))
         return;
-    
-    // Unlock next region based on current region
+
+    /* Unlock next region based on current region */
     switch (sRegionState.current_region)
     {
     case REGION_KANTO:
-        // Kanto E4 defeated → Unlock Hoenn
+        /* Kanto E4 defeated -> Unlock Hoenn */
         UnlockRegion(REGION_HOENN);
         break;
     case REGION_HOENN:
-        // Hoenn E4 defeated → Unlock Johto
+        /* Hoenn E4 defeated -> Unlock Johto */
         UnlockRegion(REGION_JOHTO);
         break;
     case REGION_JOHTO:
-        // No next region after Johto (Sinnoh descoped per ADR-003)
+        /* No next region after Johto (Sinnoh descoped per ADR-003) */
         break;
     }
 }
 
 
-// ==========================================
-// Region Transition System (Task 3.11)
-// Implements: Requirements 10.1, 10.2, 10.3, 10.4, 10.5
-// ==========================================
+/* ==========================================
+   Region Transition System (Task 3.11)
+   Implements: Requirements 10.1, 10.2, 10.3, 10.4, 10.5
+   ========================================== */
 
 /**
  * Get the region ID for a ticket item.
  * @param ticket_item The ticket item ID
  * @return The region ID, or NUM_REGIONS if invalid
- * 
+ *
  * Validates: Requirements 10.1
  */
 u8 GetRegionForTicket(u16 ticket_item)
@@ -536,40 +542,40 @@ u8 GetRegionForTicket(u16 ticket_item)
     case ITEM_JOHTO_TICKET:
         return REGION_JOHTO;
     default:
-        return NUM_REGIONS;  // Invalid ticket
+        return NUM_REGIONS;  /* Invalid ticket */
     }
 }
 
 /**
  * Get the starting warp location for a region.
  * Returns the warp data for the region's starting town.
- * 
+ *
  * Starting locations:
  *   Kanto: Pallet Town (center of town)
  *   Hoenn: Littleroot Town (center of town)
  *   Johto: New Bark Town (center of town)
- * 
+ *
  * @param region_id The region to get the starting location for
  * @param warp_data Output parameter for the warp data
- * 
+ *
  * Validates: Requirements 10.1
  */
 void GetRegionStartLocation(u8 region_id, struct RegionWarpData *warp_data)
 {
     if (warp_data == NULL)
         return;
-    
-    // Default to invalid warp
+
+    /* Default to invalid warp */
     warp_data->mapGroup = -1;
     warp_data->mapNum = -1;
     warp_data->warpId = -1;
     warp_data->x = 0;
     warp_data->y = 0;
-    
+
     switch (region_id)
     {
     case REGION_KANTO:
-        // Pallet Town - center of town
+        /* Pallet Town - center of town */
         warp_data->mapGroup = MAP_GROUP(MAP_PALLET_TOWN);
         warp_data->mapNum = MAP_NUM(MAP_PALLET_TOWN);
         warp_data->warpId = WARP_ID_NONE;
@@ -577,7 +583,7 @@ void GetRegionStartLocation(u8 region_id, struct RegionWarpData *warp_data)
         warp_data->y = 8;
         break;
     case REGION_HOENN:
-        // Littleroot Town - center of town
+        /* Littleroot Town - center of town */
         warp_data->mapGroup = MAP_GROUP(MAP_LITTLEROOT_TOWN);
         warp_data->mapNum = MAP_NUM(MAP_LITTLEROOT_TOWN);
         warp_data->warpId = WARP_ID_NONE;
@@ -585,8 +591,8 @@ void GetRegionStartLocation(u8 region_id, struct RegionWarpData *warp_data)
         warp_data->y = 10;
         break;
     case REGION_JOHTO:
-        // New Bark Town - center of town (stub - Johto not yet integrated)
-        // Using placeholder coordinates until Johto maps are available
+        /* New Bark Town - center of town (stub - Johto not yet integrated).
+           Using placeholder coordinates until Johto maps are available. */
         warp_data->mapGroup = MAP_GROUP(MAP_NEW_BARK_TOWN);
         warp_data->mapNum = MAP_NUM(MAP_NEW_BARK_TOWN);
         warp_data->warpId = WARP_ID_NONE;
@@ -599,23 +605,23 @@ void GetRegionStartLocation(u8 region_id, struct RegionWarpData *warp_data)
 /**
  * Check if player can transition to a target region.
  * Validates that the region is unlocked before allowing transition.
- * 
+ *
  * @param target_region The region to check
  * @return TRUE if transition is allowed, FALSE otherwise
- * 
+ *
  * Validates: Requirements 10.5
  */
 bool8 CanTransitionToRegion(u8 target_region)
 {
-    // Validate region ID
+    /* Validate region ID */
     if (target_region >= NUM_REGIONS)
         return FALSE;
-    
-    // Kanto is always accessible (starting region)
+
+    /* Kanto is always accessible (starting region) */
     if (target_region == REGION_KANTO)
         return TRUE;
-    
-    // Check if region is unlocked
+
+    /* Check if region is unlocked */
     return IsRegionUnlocked(target_region);
 }
 
@@ -623,60 +629,60 @@ bool8 CanTransitionToRegion(u8 target_region)
  * Execute a region transition.
  * Updates the Region_Manager current region state.
  * Party and inventory are preserved automatically (stored in save data).
- * 
+ *
  * @param target_region The region to transition to
  * @return TRUE if transition was successful, FALSE otherwise
- * 
+ *
  * Validates: Requirements 10.2, 10.3, 10.4
  */
 bool8 TransitionToRegion(u8 target_region)
 {
-    // Validate transition is allowed
+    /* Validate transition is allowed */
     if (!CanTransitionToRegion(target_region))
         return FALSE;
-    
-    // Update current region state (Requirement 10.4)
+
+    /* Update current region state (Requirement 10.4) */
     SetCurrentRegion(target_region);
-    
-    // Party is preserved automatically - stored in gPlayerParty (save data)
-    // Inventory is preserved automatically - stored in gSaveBlock1Ptr->bagPocket (save data)
-    // No explicit action needed for Requirements 10.2 and 10.3
-    
+
+    /* Party is preserved automatically - stored in gPlayerParty (save data).
+       Inventory is preserved automatically - stored in gSaveBlock1Ptr->bagPocket (save data).
+       No explicit action needed for Requirements 10.2 and 10.3. */
+
     return TRUE;
 }
 
 /**
  * Handle region ticket usage.
  * This is the main entry point for using a region ticket.
- * 
+ *
  * If the region is unlocked:
  *   - Updates current region state
  *   - Returns TRUE to indicate warp should be initiated
- * 
+ *
  * If the region is locked:
  *   - Returns FALSE to indicate warp should not occur
  *   - Caller should display appropriate error message
- * 
+ *
  * @param ticket_item The ticket item ID being used
  * @return TRUE if warp should be initiated, FALSE if region is locked
- * 
+ *
  * Validates: Requirements 10.1, 10.5
  */
 bool8 UseRegionTicket(u16 ticket_item)
 {
     u8 target_region;
-    
-    // Get the target region for this ticket
+
+    /* Get the target region for this ticket */
     target_region = GetRegionForTicket(ticket_item);
-    
-    // Validate ticket
+
+    /* Validate ticket */
     if (target_region >= NUM_REGIONS)
         return FALSE;
-    
-    // Check if region is unlocked (Requirement 10.5)
+
+    /* Check if region is unlocked (Requirement 10.5) */
     if (!CanTransitionToRegion(target_region))
         return FALSE;
-    
-    // Execute the transition (updates region state)
+
+    /* Execute the transition (updates region state) */
     return TransitionToRegion(target_region);
 }
