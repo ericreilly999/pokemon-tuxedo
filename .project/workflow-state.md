@@ -4,7 +4,7 @@
 Simple (no deployed service; output is a .gba ROM file)
 
 ## Current Stage
-**Stage 5: QA Validation** — PR #1 merged; master CI running (S3 upload in progress); QA-001 and QA-006 open
+**Stage 6: Complete — Consolidation Phase shipped. Pending: QA-006 live emulator validation.**
 
 ## Active Route
 `dev → release`
@@ -16,18 +16,23 @@ Simple (no deployed service; output is a .gba ROM file)
 | Spec complete | ✅ | Two specs: full-regions (Phases 1–6) + consolidation (Req 1–21) |
 | TODO.md written | ✅ | See .project/TODO.md |
 | decisions.md initialised | ✅ | ADR-001 through ADR-008 all accepted |
-| DEV tasks complete | ✅ | DEV-001–008, DEV-016–019 all complete |
+| DEV tasks complete | ✅ | DEV-001–008, DEV-016–019 all [x] |
 | PR merged | ✅ | PR #1 merged — SHA b62ccb8e3 |
-| ROM built | ✅ | CI builds clean on every push; master build in progress |
-| S3 artifact uploaded | 🔄 | Master CI run 24618281043 in progress |
-| QA-001 sign-off | 🔄 | 31 properties pass in CI; formal QA-001 sign-off pending |
-| QA-006 live validation | ❌ | Requires emulator testing post-merge |
+| ROM built | ✅ | CI builds clean on master; 33/33 tests pass |
+| S3 artifact uploaded | ✅ | `s3://pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba` live |
+| QA-001 sign-off | ✅ | 33 tests, all 14 Req 17 properties, Hoenn completeness — APPROVED |
+| Root directory cleanup | ✅ | 25 obsolete docs removed (DEV-008) |
+| QA-006 live validation | ❌ | Rival formula, ace bonus, travel — requires emulator testing |
 
 ## Next Action
-1. Confirm master CI run 24618281043 passes (ROM built + S3 upload)
-2. QA Engineer: formal QA-001 sign-off (all 14 named properties + Hoenn completeness)
-3. QA Engineer: QA-006 live emulator validation of rival formula, ace bonus, travel system
-4. Application Engineer: DEV-008 root directory cleanup (delete 25 obsolete docs) — gated on QA-001
+Human decision: proceed to QA-006 (emulator validation of Reqs 22–25 in live ROM), or advance to Phase 5 (Johto integration from CrystalDust).
+
+QA-006 requires loading `pokemon-tuxedo-latest.gba` in a GBA emulator and validating:
+- Rival encounter levels match player's top-3 average
+- Champion (Blue) uses badge-count formula, not adaptive
+- Ace Pokemon is last party slot at trainer average + 4
+- Hoenn Ticket in bag after first use, Littleroot Town in Fly menu
+- No Crossroads travel trigger reachable in normal gameplay
 
 ## Last Updated
-2026-04-19 — PR #1 merged
+2026-04-19 — Consolidation phase complete
