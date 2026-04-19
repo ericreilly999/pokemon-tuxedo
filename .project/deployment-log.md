@@ -20,7 +20,23 @@ compare the ROM binary.
 | Action | Initial `terraform apply` — infrastructure created from scratch |
 | Resources created | 8 (S3 bucket, versioning, SSE, public access block, ownership controls, IAM user, IAM policy, IAM access key) |
 | S3 bucket | `pokemon-tuxedo-releases` (us-east-1) |
-| IAM user | `arn:aws:iam::REDACTED_ACCOUNT_ID:user/pokemon-tuxedo-ci` |
-| Access key ID | `REDACTED_SEE_INCIDENT_LOG` |
-| State | Local (`terraform/terraform.tfstate`) — migration to S3 backend pending |
+| IAM user | `pokemon-tuxedo-ci` |
+| Access key ID | [REDACTED — key was compromised and rotated; see security entry below] |
+| State | Local (`terraform/terraform.tfstate`) — migration to S3 backend completed 2026-04-19 |
 | Result | SUCCESS |
+
+---
+
+## SECURITY INCIDENT — 2026-04-19 (IAM key rotation and history purge)
+
+| Field | Value |
+|-------|-------|
+| Date | 2026-04-19 |
+| Operator | DevOps Engineer |
+| Incident | IAM access key ID committed in plaintext in `.project/github-secrets-setup.md` |
+| Compromised key | Deleted at 2026-04-19T00:08 UTC — confirmed inactive via `aws iam list-access-keys` |
+| New key | `AKIAUHQEOQTP6ZLKGYOQ` — Terraform-managed, secret in encrypted S3 state only |
+| Git history | feature/consolidation-and-new-mechanics rewritten via `git filter-branch`; force-pushed to origin; local object store pruned via `git gc --prune=now` |
+| Remote state | Migrated from local `.tfstate` to `s3://pokemon-tuxedo-tfstate/pokemon-tuxedo/prod/terraform.tfstate` (AES-256 SSE, versioning enabled, public access blocked, DynamoDB lock table active) |
+| Secrets doc | `.project/github-secrets-setup.md` rewritten — contains no key IDs, account IDs, or secret values |
+| Result | REMEDIATED |
