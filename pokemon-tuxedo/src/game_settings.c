@@ -61,12 +61,12 @@ void ApplyGameSpeed(u32 *duration)
 
 void SaveGameSettings(void)
 {
-    // Save settings to save data
-    // This would integrate with the main save system
+    /* Save settings to save data */
+    /* This would integrate with the main save system */
 }
 
 void LoadGameSettings(void)
 {
-    // Load settings from save data
-    // This would integrate with the main save system
+    /* Load settings from save data */
+    /* This would integrate with the main save system */
 }

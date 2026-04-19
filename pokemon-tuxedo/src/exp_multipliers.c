@@ -34,7 +34,7 @@
 
 u8 GetActiveExpMultiplier(void)
 {
-    // Check in priority order (highest to lowest)
+    /* Check in priority order (highest to lowest) */
     if (CheckBagHasItem(ITEM_MAGIC_EGG, 1))
         return 4;
     else if (CheckBagHasItem(ITEM_MYSTIC_EGG, 1))
@@ -42,7 +42,7 @@ u8 GetActiveExpMultiplier(void)
     else if (CheckBagHasItem(ITEM_LUCKY_EGG, 1))
         return 2;
     else
-        return 1;  // No multiplier
+        return 1;  /* No multiplier */
 }
 
 u32 ApplyExpMultiplier(u32 base_exp)
@@ -92,9 +92,9 @@ u32 SafeApplyExpMultiplier(u32 base_exp, u16 held_item)
     u8 hold_effect = ItemId_GetHoldEffect(held_item);
     
     if (hold_effect == HOLD_EFFECT_MYSTIC_EGG)
-        return (base_exp * 300) / 100;  // 3x multiplier
+        return (base_exp * 300) / 100;  /* 3x multiplier */
     else if (hold_effect == HOLD_EFFECT_MAGIC_EGG)
-        return (base_exp * 400) / 100;  // 4x multiplier
+        return (base_exp * 400) / 100;  /* 4x multiplier */
     else
-        return base_exp;  // No multiplier
+        return base_exp;  /* No multiplier */
 }

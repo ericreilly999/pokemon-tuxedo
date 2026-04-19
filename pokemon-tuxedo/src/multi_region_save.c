@@ -27,8 +27,8 @@
  * - All other regions start locked
  */
 
-// External EWRAM data from fly_location_discovery.c
-// These are accessed via getter functions for encapsulation
+/* External EWRAM data from fly_location_discovery.c */
+/* These are accessed via getter functions for encapsulation */
 extern u16* GetFlyLocationArray(void);
 extern u8* GetFlyLocationCountArray(void);
 
@@ -51,36 +51,36 @@ void SaveMultiRegionData(void)
     struct RegionState *regionState = GetRegionState();
     u8 i;
     
-    // Save current region (Requirement 16.1)
+    /* Save current region (Requirement 16.1) */
     saveData->currentRegion = regionState->current_region;
-    
-    // Save region unlock flags (Requirement 16.2)
+
+    /* Save region unlock flags (Requirement 16.2) */
     saveData->hoennUnlocked = regionState->hoenn_unlocked;
     saveData->johtoUnlocked = regionState->johto_unlocked;
-    
-    // Save Elite Four defeated flags (Requirement 16.2)
+
+    /* Save Elite Four defeated flags (Requirement 16.2) */
     for (i = 0; i < NUM_REGIONS; i++)
     {
         saveData->eliteFourDefeated[i] = regionState->elite_four_defeated[i];
     }
-    
-    // Save badge data (Requirement 16.3)
-    // Copy from BadgeData struct to flat array
-    // Index 0-7: Kanto, 8-15: Hoenn, 16-23: Johto
+
+    /* Save badge data (Requirement 16.3) */
+    /* Copy from BadgeData struct to flat array */
+    /* Index 0-7: Kanto, 8-15: Hoenn, 16-23: Johto */
     for (i = 0; i < BADGES_PER_REGION; i++)
     {
         saveData->badges[i] = regionState->badges.kanto_badges[i];
         saveData->badges[BADGES_PER_REGION + i] = regionState->badges.hoenn_badges[i];
         saveData->badges[2 * BADGES_PER_REGION + i] = regionState->badges.johto_badges[i];
     }
-    
-    // Save fly location data (Requirement 16.4)
-    // Copy from EWRAM arrays to save data
+
+    /* Save fly location data (Requirement 16.4) */
+    /* Copy from EWRAM arrays to save data */
     for (i = 0; i < MAX_FLY_LOCATIONS_TOTAL; i++)
     {
         saveData->flyLocations[i] = GetFlyLocationArray()[i];
     }
-    
+
     for (i = 0; i < NUM_REGIONS; i++)
     {
         saveData->flyLocationCount[i] = GetFlyLocationCountArray()[i];
@@ -112,57 +112,57 @@ void LoadMultiRegionData(void)
     u8 i;
     u8 validationResult;
     
-    // Check for backward compatibility - if save data is invalid, initialize defaults
+    /* Check for backward compatibility - if save data is invalid, initialize defaults */
     validationResult = ValidateMultiRegionSaveData();
     if (validationResult != SAVE_VALID)
     {
-        // Old save or corrupted data - initialize to defaults
+        /* Old save or corrupted data - initialize to defaults */
         InitMultiRegionSaveData();
         InitRegionState();
         InitFlyLocationData();
-        
-        // Sync from flags for backward compatibility with Kanto badges
+
+        /* Sync from flags for backward compatibility with Kanto badges */
         SyncRegionStateFromFlags();
         return;
     }
-    
-    // Load current region (Requirement 16.1)
+
+    /* Load current region (Requirement 16.1) */
     regionState->current_region = saveData->currentRegion;
-    
-    // Load region unlock flags (Requirement 16.2)
+
+    /* Load region unlock flags (Requirement 16.2) */
     regionState->hoenn_unlocked = saveData->hoennUnlocked;
     regionState->johto_unlocked = saveData->johtoUnlocked;
-    
-    // Load Elite Four defeated flags (Requirement 16.2)
+
+    /* Load Elite Four defeated flags (Requirement 16.2) */
     for (i = 0; i < NUM_REGIONS; i++)
     {
         regionState->elite_four_defeated[i] = saveData->eliteFourDefeated[i];
     }
-    
-    // Load badge data (Requirement 16.3)
-    // Copy from flat array to BadgeData struct
-    // Index 0-7: Kanto, 8-15: Hoenn, 16-23: Johto
+
+    /* Load badge data (Requirement 16.3) */
+    /* Copy from flat array to BadgeData struct */
+    /* Index 0-7: Kanto, 8-15: Hoenn, 16-23: Johto */
     for (i = 0; i < BADGES_PER_REGION; i++)
     {
         regionState->badges.kanto_badges[i] = saveData->badges[i];
         regionState->badges.hoenn_badges[i] = saveData->badges[BADGES_PER_REGION + i];
         regionState->badges.johto_badges[i] = saveData->badges[2 * BADGES_PER_REGION + i];
     }
-    
-    // Load fly location data (Requirement 16.4)
-    // Copy from save data to EWRAM arrays
+
+    /* Load fly location data (Requirement 16.4) */
+    /* Copy from save data to EWRAM arrays */
     for (i = 0; i < MAX_FLY_LOCATIONS_TOTAL; i++)
     {
         GetFlyLocationArray()[i] = saveData->flyLocations[i];
     }
-    
+
     for (i = 0; i < NUM_REGIONS; i++)
     {
         GetFlyLocationCountArray()[i] = saveData->flyLocationCount[i];
     }
-    
-    // Also sync from flags for consistency (Requirement 16.5)
-    // This ensures flag-based systems stay in sync with our state
+
+    /* Also sync from flags for consistency (Requirement 16.5) */
+    /* This ensures flag-based systems stay in sync with our state */
     SyncRegionStateFromFlags();
 }
 
@@ -184,15 +184,15 @@ u8 ValidateMultiRegionSaveData(void)
     struct PokemonTuxedoSaveData *saveData = &gSaveBlock1Ptr->pokemonTuxedo;
     u8 i;
     
-    // Check if this is an old save without multi-region data
-    // Old saves will have uninitialized/zero data
-    // We detect this by checking if currentRegion is valid
+    /* Check if this is an old save without multi-region data */
+    /* Old saves will have uninitialized/zero data */
+    /* We detect this by checking if currentRegion is valid */
     if (saveData->currentRegion >= NUM_REGIONS)
     {
         return SAVE_INVALID_REGION;
     }
-    
-    // Validate badge data - each badge should be TRUE (1) or FALSE (0)
+
+    /* Validate badge data - each badge should be TRUE (1) or FALSE (0) */
     for (i = 0; i < TOTAL_BADGES; i++)
     {
         if (saveData->badges[i] != TRUE && saveData->badges[i] != FALSE)
@@ -200,8 +200,8 @@ u8 ValidateMultiRegionSaveData(void)
             return SAVE_INVALID_BADGES;
         }
     }
-    
-    // Validate Elite Four defeated flags
+
+    /* Validate Elite Four defeated flags */
     for (i = 0; i < NUM_REGIONS; i++)
     {
         if (saveData->eliteFourDefeated[i] != TRUE && saveData->eliteFourDefeated[i] != FALSE)
@@ -209,15 +209,15 @@ u8 ValidateMultiRegionSaveData(void)
             return SAVE_CORRUPTED;
         }
     }
-    
-    // Validate region unlock flags
+
+    /* Validate region unlock flags */
     if ((saveData->hoennUnlocked != TRUE && saveData->hoennUnlocked != FALSE) ||
         (saveData->johtoUnlocked != TRUE && saveData->johtoUnlocked != FALSE))
     {
         return SAVE_CORRUPTED;
     }
-    
-    // Validate fly location counts - should not exceed max per region
+
+    /* Validate fly location counts - should not exceed max per region */
     for (i = 0; i < NUM_REGIONS; i++)
     {
         if (saveData->flyLocationCount[i] > FLY_LOCATIONS_PER_REGION)
@@ -245,32 +245,32 @@ void InitMultiRegionSaveData(void)
     struct PokemonTuxedoSaveData *saveData = &gSaveBlock1Ptr->pokemonTuxedo;
     u8 i;
     
-    // Initialize region tracking (Requirement 16.1)
+    /* Initialize region tracking (Requirement 16.1) */
     saveData->currentRegion = REGION_KANTO;
-    
-    // Initialize region unlock flags (Requirement 16.2)
-    // Kanto is always unlocked (starting region)
+
+    /* Initialize region unlock flags (Requirement 16.2) */
+    /* Kanto is always unlocked (starting region) */
     saveData->hoennUnlocked = FALSE;
     saveData->johtoUnlocked = FALSE;
-    
-    // Initialize Elite Four defeated flags (Requirement 16.2)
+
+    /* Initialize Elite Four defeated flags (Requirement 16.2) */
     for (i = 0; i < NUM_REGIONS; i++)
     {
         saveData->eliteFourDefeated[i] = FALSE;
     }
-    
-    // Initialize badge data (Requirement 16.3)
+
+    /* Initialize badge data (Requirement 16.3) */
     for (i = 0; i < TOTAL_BADGES; i++)
     {
         saveData->badges[i] = FALSE;
     }
-    
-    // Initialize fly location data (Requirement 16.4)
+
+    /* Initialize fly location data (Requirement 16.4) */
     for (i = 0; i < MAX_FLY_LOCATIONS_TOTAL; i++)
     {
         saveData->flyLocations[i] = 0;
     }
-    
+
     for (i = 0; i < NUM_REGIONS; i++)
     {
         saveData->flyLocationCount[i] = 0;

@@ -1327,12 +1327,13 @@ bool32 CannotUseItemsInBattle(enum Item itemId, struct Pokemon *mon)
         break;
     case EFFECT_ITEM_INCREASE_ALL_STATS:
     {
+        u32 ability;
         if (hp == 0 || gPartyMenu.slotId > 1)
         {
             cannotUse = TRUE;
             break;
         }
-        u32 ability = GetBattlerAbility(battlerTarget);
+        ability = GetBattlerAbility(battlerTarget);
         for (i = STAT_ATK; i < NUM_STATS; i++)
         {
             if (CompareStat(battlerTarget, i, MAX_STAT_STAGE, CMP_EQUAL, ability))
@@ -1513,17 +1514,16 @@ void ItemUseOutOfBattle_CannotUse(u8 taskId)
     DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
 }
 
+typedef struct {
+    u16 mapGroup;
+    u16 mapNum;
+} Location;
+
 static bool32 IsValidLocationForVsSeeker(void)
 {
     u16 mapGroup = gSaveBlock1Ptr->location.mapGroup;
     u16 mapNum = gSaveBlock1Ptr->location.mapNum;
     enum MapType mapType = gMapHeader.mapType;
-
-    typedef struct {
-        u16 mapGroup;
-        u16 mapNum;
-    } Location;
-
     u32 i;
     Location validIndoorLocations[] =
     {
