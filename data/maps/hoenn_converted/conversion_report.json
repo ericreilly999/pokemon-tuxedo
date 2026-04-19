@@ -1,0 +1,214 @@
+﻿{
+    "success":  34,
+    "details":  [
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route101\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route101.json",
+                        "route":  "Route101"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route102\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route102.json",
+                        "route":  "Route102"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route103\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route103.json",
+                        "route":  "Route103"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route104\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route104.json",
+                        "route":  "Route104"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route105\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route105.json",
+                        "route":  "Route105"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route106\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route106.json",
+                        "route":  "Route106"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route107\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route107.json",
+                        "route":  "Route107"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route108\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route108.json",
+                        "route":  "Route108"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route109\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route109.json",
+                        "route":  "Route109"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route110\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route110.json",
+                        "route":  "Route110"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route111\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route111.json",
+                        "route":  "Route111"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route112\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route112.json",
+                        "route":  "Route112"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route113\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route113.json",
+                        "route":  "Route113"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route114\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route114.json",
+                        "route":  "Route114"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route115\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route115.json",
+                        "route":  "Route115"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route116\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route116.json",
+                        "route":  "Route116"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route117\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route117.json",
+                        "route":  "Route117"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route118\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route118.json",
+                        "route":  "Route118"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route119\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route119.json",
+                        "route":  "Route119"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route120\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route120.json",
+                        "route":  "Route120"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route121\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route121.json",
+                        "route":  "Route121"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route122\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route122.json",
+                        "route":  "Route122"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route123\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route123.json",
+                        "route":  "Route123"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route124\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route124.json",
+                        "route":  "Route124"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route125\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route125.json",
+                        "route":  "Route125"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route126\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route126.json",
+                        "route":  "Route126"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route127\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route127.json",
+                        "route":  "Route127"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route128\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route128.json",
+                        "route":  "Route128"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route129\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route129.json",
+                        "route":  "Route129"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route130\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route130.json",
+                        "route":  "Route130"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route131\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route131.json",
+                        "route":  "Route131"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route132\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route132.json",
+                        "route":  "Route132"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route133\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route133.json",
+                        "route":  "Route133"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\Route134\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\Route134.json",
+                        "route":  "Route134"
+                    }
+                ],
+    "region":  "Hoenn",
+    "total":  34,
+    "type":  "routes",
+    "failed":  0,
+    "skipped":  0
+}

@@ -41,9 +41,10 @@ bool8 ValidateBadgeCount(u8 badge_count)
 bool8 ValidateRegionId(u8 region_id)
 {
     /*
-     * Validate region ID is within valid range (0-3)
+     * Validate region ID is within valid range (0 to NUM_REGIONS-1)
+     * Note: Sinnoh is descoped per ADR-003
      */
-    return region_id <= REGION_SINNOH;
+    return region_id < NUM_REGIONS;
 }
 
 struct LevelRange SafeGetWildPokemonLevelRange(u8 badge_count, u8 region_id, bool8 elite_four_defeated)

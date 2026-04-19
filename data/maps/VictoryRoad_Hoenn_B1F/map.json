@@ -1,0 +1,29 @@
+﻿{
+    "id":  "MAP_VICTORYROAD_HOENN_B1F",
+    "warp_events":  [
+
+                    ],
+    "bg_events":  [
+
+                  ],
+    "requires_flash":  false,
+    "allow_cycling":  true,
+    "battle_scene":  "MAP_BATTLE_SCENE_NORMAL",
+    "connections":  null,
+    "weather":  "WEATHER_NONE",
+    "map_type":  "MAP_TYPE_ROUTE",
+    "object_events":  [
+
+                      ],
+    "layout":  "LAYOUT_VICTORYROAD_HOENN_B1F",
+    "region_map_section":  "MAPSEC_VICTORYROAD_HOENN_B1F",
+    "allow_running":  true,
+    "name":  "VictoryRoad_Hoenn_B1F",
+    "allow_escaping":  true,
+    "show_map_name":  true,
+    "coord_events":  [
+
+                     ],
+    "region_id":  2,
+    "music":  "MUS_HOENN_ROUTE"
+}

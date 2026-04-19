@@ -1,0 +1,106 @@
+﻿{
+    "success":  16,
+    "details":  [
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\LittlerootTown\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\LittlerootTown.json",
+                        "city":  "LittlerootTown"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\OldaleTown\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\OldaleTown.json",
+                        "city":  "OldaleTown"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\PetalburgCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\PetalburgCity.json",
+                        "city":  "PetalburgCity"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\RustboroCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\RustboroCity.json",
+                        "city":  "RustboroCity"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\DewfordTown\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\DewfordTown.json",
+                        "city":  "DewfordTown"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SlateportCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SlateportCity.json",
+                        "city":  "SlateportCity"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MauvilleCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MauvilleCity.json",
+                        "city":  "MauvilleCity"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\VerdanturfTown\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\VerdanturfTown.json",
+                        "city":  "VerdanturfTown"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\FallarborTown\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\FallarborTown.json",
+                        "city":  "FallarborTown"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\LavaridgeTown\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\LavaridgeTown.json",
+                        "city":  "LavaridgeTown"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\FortreeCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\FortreeCity.json",
+                        "city":  "FortreeCity"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\LilycoveCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\LilycoveCity.json",
+                        "city":  "LilycoveCity"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MossdeepCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MossdeepCity.json",
+                        "city":  "MossdeepCity"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SootopolisCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SootopolisCity.json",
+                        "city":  "SootopolisCity"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\PacifidlogTown\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\PacifidlogTown.json",
+                        "city":  "PacifidlogTown"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\EverGrandeCity\\map.json",
+                        "status":  "SUCCESS",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\EverGrandeCity.json",
+                        "city":  "EverGrandeCity"
+                    }
+                ],
+    "region":  "Hoenn",
+    "total":  16,
+    "type":  "cities",
+    "failed":  0,
+    "skipped":  0
+}

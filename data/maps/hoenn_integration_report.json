@@ -1,0 +1,12 @@
+{
+    "Timestamp":  "2026-03-15 21:11:13",
+    "MapGroups":  {
+                      "TownsAndRoutes":  50,
+                      "Dungeons":  54
+                  },
+    "DirectoriesSkipped":  0,
+    "DirectoriesCreated":  104,
+    "TotalHoennMaps":  104,
+    "ConvertedMapsFound":  107,
+    "HoennGroupsAdded":  true
+}

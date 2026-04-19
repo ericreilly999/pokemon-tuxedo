@@ -757,17 +757,43 @@ struct ExternalEventFlags
 } __attribute__((packed));/*size = 0x15*/
 
 // Pokemon Tuxedo save data structure
+// Extended for multi-region support (Task 3.13)
+// Validates: Requirements 16.1, 16.2, 16.3, 16.4, 16.5
 struct PokemonTuxedoSaveData {
-    u8 current_region;                    // 0-3 for Kanto/Johto/Hoenn/Sinnoh
-    u8 badge_count;                       // Total badges across all regions (0-32)
-    bool8 elite_four_defeated[4];         // One flag per region
+    // Legacy fields (preserved for backward compatibility)
     u8 current_level_cap;                 // Maximum level Pokemon can reach
     u8 active_exp_multiplier;             // 1=none, 2=Lucky, 3=Mystic, 4=Magic
-    u8 fly_locations_discovered[32];      // Bitfield for discovered fly locations (256 bits = 32 bytes)
-    u8 region_badges[4];                  // Badges per region (0-8 each)
     u8 battle_mode;                       // 0=shift, 1=set
     u8 game_speed;                        // 1-10 (speed multiplier)
-}; // size: 46 bytes
+    
+    // Multi-region fields (Requirements 16.1-16.5)
+    // Region tracking (Requirement 16.1)
+    u8 currentRegion;                     // 0=Kanto, 1=Hoenn, 2=Johto (ADR-004 sequence)
+    
+    // Region unlock flags (Requirement 16.2)
+    // Note: Kanto is always unlocked (starting region)
+    // Sinnoh descoped per ADR-003
+    bool8 hoennUnlocked;                  // TRUE if Hoenn is accessible
+    bool8 johtoUnlocked;                  // TRUE if Johto is accessible
+    
+    // Elite Four defeat tracking (Requirement 16.2)
+    // Index: 0=Kanto, 1=Hoenn, 2=Johto (3 regions per ADR-003)
+    bool8 eliteFourDefeated[3];           // One flag per region
+    
+    // Badge tracking (Requirement 16.3)
+    // 8 badges per region × 3 regions = 24 badges total
+    // Index: 0-7=Kanto, 8-15=Hoenn, 16-23=Johto
+    bool8 badges[24];                     // All region badges
+    
+    // Fly location tracking (Requirement 16.4)
+    // 16 fly locations per region × 3 regions = 48 locations total
+    // Stores map IDs for registered fly destinations
+    u16 flyLocations[48];                 // Map IDs for fly destinations
+    
+    // Fly location counts per region (Requirement 16.4)
+    // Index: 0=Kanto, 1=Hoenn, 2=Johto
+    u8 flyLocationCount[3];               // Number of registered locations per region
+};
 
 struct SaveBlock1
 {

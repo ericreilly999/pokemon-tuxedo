@@ -1221,16 +1221,38 @@
 #define FLAG_HIDDEN_ITEM_VIRIDIAN_CITY_GYM_MACHO_BRACE                     (FLAG_HIDDEN_ITEMS_START + 189)
 #define FLAG_HIDDEN_ITEM_SSANNE_EXTERIOR_LAVA_COOKIE                       (FLAG_HIDDEN_ITEMS_START + 190)
 
-// Unused hidden item flags
-#define FLAG_UNUSED_0x4A7               0x4A7 // Unused Flag
-#define FLAG_UNUSED_0x4A8               0x4A8 // Unused Flag
-#define FLAG_UNUSED_0x4A9               0x4A9 // Unused Flag
-#define FLAG_UNUSED_0x4AA               0x4AA // Unused Flag
-#define FLAG_UNUSED_0x4AB               0x4AB // Unused Flag
-#define FLAG_UNUSED_0x4AC               0x4AC // Unused Flag
-#define FLAG_UNUSED_0x4AD               0x4AD // Unused Flag
-#define FLAG_UNUSED_0x4AE               0x4AE // Unused Flag
-#define FLAG_UNUSED_0x4AF               0x4AF // Unused Flag
+// Multi-region badge flags (Hoenn and Johto)
+// Kanto badges use FLAG_BADGE01_GET through FLAG_BADGE08_GET (SYS_FLAGS + 0x20-0x27)
+// Hoenn badges (8 badges)
+#define FLAG_HOENN_BADGE01_GET          0x4C7  // Stone Badge (Roxanne)
+#define FLAG_HOENN_BADGE02_GET          0x4C8  // Knuckle Badge (Brawly)
+#define FLAG_HOENN_BADGE03_GET          0x4C9  // Dynamo Badge (Wattson)
+#define FLAG_HOENN_BADGE04_GET          0x4CA  // Heat Badge (Flannery)
+#define FLAG_HOENN_BADGE05_GET          0x4CB  // Balance Badge (Norman)
+#define FLAG_HOENN_BADGE06_GET          0x4CC  // Feather Badge (Winona)
+#define FLAG_HOENN_BADGE07_GET          0x4CD  // Mind Badge (Tate & Liza)
+#define FLAG_HOENN_BADGE08_GET          0x4CE  // Rain Badge (Wallace/Juan)
+#define NUM_HOENN_BADGES                (1 + FLAG_HOENN_BADGE08_GET - FLAG_HOENN_BADGE01_GET)
+
+// Johto badges (8 badges)
+#define FLAG_JOHTO_BADGE01_GET          0x4CF  // Zephyr Badge (Falkner)
+#define FLAG_JOHTO_BADGE02_GET          0x4D0  // Hive Badge (Bugsy)
+#define FLAG_JOHTO_BADGE03_GET          0x4D1  // Plain Badge (Whitney)
+#define FLAG_JOHTO_BADGE04_GET          0x4D2  // Fog Badge (Morty)
+#define FLAG_JOHTO_BADGE05_GET          0x4D3  // Storm Badge (Chuck)
+#define FLAG_JOHTO_BADGE06_GET          0x4D4  // Mineral Badge (Jasmine)
+#define FLAG_JOHTO_BADGE07_GET          0x4D5  // Glacier Badge (Pryce)
+#define FLAG_JOHTO_BADGE08_GET          0x4D6  // Rising Badge (Clair)
+#define NUM_JOHTO_BADGES                (1 + FLAG_JOHTO_BADGE08_GET - FLAG_JOHTO_BADGE01_GET)
+
+// Elite Four defeated flags for multi-region
+#define FLAG_KANTO_ELITE_FOUR_DEFEATED  0x4D7
+#define FLAG_HOENN_ELITE_FOUR_DEFEATED  0x4D8
+#define FLAG_JOHTO_ELITE_FOUR_DEFEATED  0x4D9
+
+// Region unlock flags
+#define FLAG_HOENN_UNLOCKED             0x4DA
+#define FLAG_JOHTO_UNLOCKED             0x4DB
 
 // Boss clear flags, 1200
 #define FLAG_DEFEATED_BROCK           0x4B0

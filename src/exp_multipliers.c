@@ -38,9 +38,11 @@ void AwardMultiplierItemAfterEliteFour(u8 region_id)
     /*
      * Award multiplier items after Elite Four defeats:
      * - Kanto E4: Lucky Egg (2x)
-     * - Johto E4: Mystic Egg (3x)
-     * - Hoenn E4: Magic Egg (4x)
-     * - Sinnoh E4: No additional multiplier
+     * - Hoenn E4: Mystic Egg (3x)
+     * - Johto E4: Magic Egg (4x)
+     * 
+     * Note: Region order is Kanto → Hoenn → Johto per ADR-004
+     * Sinnoh is descoped per ADR-003
      */
     
     switch (region_id)
@@ -48,14 +50,11 @@ void AwardMultiplierItemAfterEliteFour(u8 region_id)
     case REGION_KANTO:
         AddBagItem(ITEM_LUCKY_EGG, 1);
         break;
-    case REGION_JOHTO:
+    case REGION_HOENN:
         AddBagItem(ITEM_MYSTIC_EGG, 1);
         break;
-    case REGION_HOENN:
+    case REGION_JOHTO:
         AddBagItem(ITEM_MAGIC_EGG, 1);
-        break;
-    case REGION_SINNOH:
-        // No additional multiplier after Sinnoh
         break;
     }
 }

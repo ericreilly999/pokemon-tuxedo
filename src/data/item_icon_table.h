@@ -398,6 +398,12 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_POWDER_JAR]     = {gItemIcon_PowderJar, gItemIconPalette_PowderJar},
     [ITEM_RUBY]           = {gItemIcon_Gem, gItemIconPalette_Ruby},
     [ITEM_SAPPHIRE]       = {gItemIcon_Gem, gItemIconPalette_Sapphire},
+    // Pokemon Tuxedo: New items
+    [ITEM_MYSTIC_EGG]     = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_MAGIC_EGG]      = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_JOHTO_TICKET]   = {gItemIcon_MysticTicket, gItemIconPalette_MysticTicket},
+    [ITEM_HOENN_TICKET]   = {gItemIcon_EonTicket, gItemIconPalette_EonTicket},
+    [ITEM_SINNOH_TICKET]  = {gItemIcon_AuroraTicket, gItemIconPalette_AuroraTicket},
     // Return to field arrow
     [ITEMS_COUNT]         = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };

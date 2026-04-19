@@ -1,0 +1,334 @@
+﻿{
+    "success":  54,
+    "details":  [
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\PetalburgWoods\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "PetalburgWoods",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\PetalburgWoods.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\GraniteCave_1F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "GraniteCave_1F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\GraniteCave_1F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\GraniteCave_B1F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "GraniteCave_B1F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\GraniteCave_B1F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\GraniteCave_B2F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "GraniteCave_B2F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\GraniteCave_B2F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\GraniteCave_StevensRoom\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "GraniteCave_StevensRoom",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\GraniteCave_StevensRoom.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\RusturfTunnel\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "RusturfTunnel",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\RusturfTunnel.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MeteorFalls_1F_1R\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MeteorFalls_1F_1R",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MeteorFalls_1F_1R.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MeteorFalls_1F_2R\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MeteorFalls_1F_2R",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MeteorFalls_1F_2R.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MeteorFalls_B1F_1R\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MeteorFalls_B1F_1R",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MeteorFalls_B1F_1R.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MeteorFalls_B1F_2R\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MeteorFalls_B1F_2R",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MeteorFalls_B1F_2R.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MeteorFalls_StevensCave\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MeteorFalls_StevensCave",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MeteorFalls_StevensCave.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtChimney\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtChimney",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtChimney.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtChimney_CableCarStation\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtChimney_CableCarStation",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtChimney_CableCarStation.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\JaggedPass\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "JaggedPass",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\JaggedPass.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\FieryPath\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "FieryPath",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\FieryPath.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtPyre_1F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtPyre_1F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtPyre_1F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtPyre_2F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtPyre_2F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtPyre_2F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtPyre_3F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtPyre_3F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtPyre_3F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtPyre_4F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtPyre_4F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtPyre_4F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtPyre_5F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtPyre_5F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtPyre_5F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtPyre_6F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtPyre_6F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtPyre_6F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtPyre_Exterior\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtPyre_Exterior",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtPyre_Exterior.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\MtPyre_Summit\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "MtPyre_Summit",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\MtPyre_Summit.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\ShoalCave_HighTideEntranceRoom\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "ShoalCave_HighTideEntranceRoom",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\ShoalCave_HighTideEntranceRoom.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\ShoalCave_HighTideInnerRoom\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "ShoalCave_HighTideInnerRoom",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\ShoalCave_HighTideInnerRoom.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\ShoalCave_LowTideEntranceRoom\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "ShoalCave_LowTideEntranceRoom",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\ShoalCave_LowTideEntranceRoom.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\ShoalCave_LowTideIceRoom\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "ShoalCave_LowTideIceRoom",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\ShoalCave_LowTideIceRoom.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\ShoalCave_LowTideInnerRoom\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "ShoalCave_LowTideInnerRoom",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\ShoalCave_LowTideInnerRoom.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\ShoalCave_LowTideLowerRoom\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "ShoalCave_LowTideLowerRoom",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\ShoalCave_LowTideLowerRoom.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\ShoalCave_LowTideStairsRoom\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "ShoalCave_LowTideStairsRoom",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\ShoalCave_LowTideStairsRoom.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\CaveOfOrigin_Entrance\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "CaveOfOrigin_Entrance",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\CaveOfOrigin_Entrance.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\CaveOfOrigin_1F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "CaveOfOrigin_1F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\CaveOfOrigin_1F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\CaveOfOrigin_B1F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "CaveOfOrigin_B1F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\CaveOfOrigin_B1F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Entrance\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Entrance",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Entrance.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room1\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room1",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room1.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room2\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room2",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room2.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room3\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room3",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room3.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room4\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room4",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room4.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room5\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room5",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room5.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room6\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room6",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room6.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room7\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room7",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room7.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room8\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room8",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room8.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SeafloorCavern_Room9\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SeafloorCavern_Room9",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SeafloorCavern_Room9.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SkyPillar_Entrance\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SkyPillar_Entrance",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SkyPillar_Entrance.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SkyPillar_Outside\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SkyPillar_Outside",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SkyPillar_Outside.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SkyPillar_1F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SkyPillar_1F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SkyPillar_1F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SkyPillar_2F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SkyPillar_2F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SkyPillar_2F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SkyPillar_3F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SkyPillar_3F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SkyPillar_3F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SkyPillar_4F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SkyPillar_4F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SkyPillar_4F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SkyPillar_5F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SkyPillar_5F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SkyPillar_5F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\SkyPillar_Top\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "SkyPillar_Top",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\SkyPillar_Top.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\VictoryRoad_1F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "VictoryRoad_1F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\VictoryRoad_1F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\VictoryRoad_B1F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "VictoryRoad_B1F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\VictoryRoad_B1F.json"
+                    },
+                    {
+                        "input":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\pokemon-crossroads\\data\\maps\\VictoryRoad_B2F\\map.json",
+                        "status":  "SUCCESS",
+                        "dungeon":  "VictoryRoad_B2F",
+                        "output":  "C:\\dev\\gitrepos\\working-branch\\tools\\map_converter\\..\\..\\data\\maps\\hoenn_converted\\VictoryRoad_B2F.json"
+                    }
+                ],
+    "region":  "Hoenn",
+    "total":  54,
+    "type":  "dungeons",
+    "failed":  0,
+    "skipped":  0
+}

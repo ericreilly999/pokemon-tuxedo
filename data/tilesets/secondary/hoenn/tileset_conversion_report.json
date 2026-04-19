@@ -1,0 +1,374 @@
+[
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\dewford",
+        "Status":  "Copied",
+        "Name":  "dewford",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\dewford"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\dewford_gym",
+        "Status":  "Copied",
+        "Name":  "dewford_gym",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\dewford_gym"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\ever_grande",
+        "Status":  "Copied",
+        "Name":  "ever_grande",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\ever_grande"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\elite_four",
+        "Status":  "Copied",
+        "Name":  "elite_four",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\elite_four"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\fallarbor",
+        "Status":  "Copied",
+        "Name":  "fallarbor",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\fallarbor"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\fortree",
+        "Status":  "Copied",
+        "Name":  "fortree",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\fortree"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\fortree_gym",
+        "Status":  "Copied",
+        "Name":  "fortree_gym",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\fortree_gym"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\lavaridge",
+        "Status":  "Copied",
+        "Name":  "lavaridge",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\lavaridge"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\lavaridge_gym",
+        "Status":  "Copied",
+        "Name":  "lavaridge_gym",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\lavaridge_gym"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\lilycove",
+        "Status":  "Copied",
+        "Name":  "lilycove",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\lilycove"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\lilycove_museum",
+        "Status":  "Copied",
+        "Name":  "lilycove_museum",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\lilycove_museum"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\mauville",
+        "Status":  "Copied",
+        "Name":  "mauville",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\mauville"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\mauville_game_corner",
+        "Status":  "Copied",
+        "Name":  "mauville_game_corner",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\mauville_game_corner"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\mauville_gym",
+        "Status":  "Copied",
+        "Name":  "mauville_gym",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\mauville_gym"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\mossdeep",
+        "Status":  "Copied",
+        "Name":  "mossdeep",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\mossdeep"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\mossdeep_game_corner",
+        "Status":  "Copied",
+        "Name":  "mossdeep_game_corner",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\mossdeep_game_corner"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\mossdeep_gym",
+        "Status":  "Copied",
+        "Name":  "mossdeep_gym",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\mossdeep_gym"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\pacifidlog",
+        "Status":  "Copied",
+        "Name":  "pacifidlog",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\pacifidlog"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\petalburg",
+        "Status":  "Copied",
+        "Name":  "petalburg",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\petalburg"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\petalburg_gym",
+        "Status":  "Copied",
+        "Name":  "petalburg_gym",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\petalburg_gym"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\rustboro",
+        "Status":  "Copied",
+        "Name":  "rustboro",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\rustboro"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\rustboro_gym",
+        "Status":  "Copied",
+        "Name":  "rustboro_gym",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\rustboro_gym"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\slateport",
+        "Status":  "Copied",
+        "Name":  "slateport",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\slateport"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\sootopolis",
+        "Status":  "Copied",
+        "Name":  "sootopolis",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\sootopolis"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\sootopolis_gym",
+        "Status":  "Copied",
+        "Name":  "sootopolis_gym",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\sootopolis_gym"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\cave",
+        "Status":  "Copied",
+        "Name":  "cave",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\cave"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\meteor_falls",
+        "Status":  "Copied",
+        "Name":  "meteor_falls",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\meteor_falls"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\mirage_tower",
+        "Status":  "Copied",
+        "Name":  "mirage_tower",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\mirage_tower"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\rusturf_tunnel",
+        "Status":  "Copied",
+        "Name":  "rusturf_tunnel",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\rusturf_tunnel"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\underwater",
+        "Status":  "Copied",
+        "Name":  "underwater",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\underwater"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\brendans_mays_house",
+        "Status":  "Copied",
+        "Name":  "brendans_mays_house",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\brendans_mays_house"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\contest",
+        "Status":  "Copied",
+        "Name":  "contest",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\contest"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\facility",
+        "Status":  "Copied",
+        "Name":  "facility",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\facility"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\generic_building",
+        "Status":  "Copied",
+        "Name":  "generic_building",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\generic_building"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\inside_of_truck",
+        "Status":  "Copied",
+        "Name":  "inside_of_truck",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\inside_of_truck"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\inside_ship",
+        "Status":  "Copied",
+        "Name":  "inside_ship",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\inside_ship"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\island_harbor",
+        "Status":  "Copied",
+        "Name":  "island_harbor",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\island_harbor"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\lab",
+        "Status":  "Copied",
+        "Name":  "lab",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\lab"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\mystery_events_house",
+        "Status":  "Copied",
+        "Name":  "mystery_events_house",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\mystery_events_house"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\oceanic_museum",
+        "Status":  "Copied",
+        "Name":  "oceanic_museum",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\oceanic_museum"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\pokemon_center",
+        "Status":  "Copied",
+        "Name":  "pokemon_center",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\pokemon_center"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\pokemon_day_care",
+        "Status":  "Copied",
+        "Name":  "pokemon_day_care",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\pokemon_day_care"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\pokemon_fan_club",
+        "Status":  "Copied",
+        "Name":  "pokemon_fan_club",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\pokemon_fan_club"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\pokemon_school",
+        "Status":  "Copied",
+        "Name":  "pokemon_school",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\pokemon_school"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\pretty_petal_flower_shop",
+        "Status":  "Copied",
+        "Name":  "pretty_petal_flower_shop",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\pretty_petal_flower_shop"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\seashore_house",
+        "Status":  "Copied",
+        "Name":  "seashore_house",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\seashore_house"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\secret_base",
+        "Status":  "Copied",
+        "Name":  "secret_base",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\secret_base"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\shop",
+        "Status":  "Copied",
+        "Name":  "shop",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\shop"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\trick_house_puzzle",
+        "Status":  "Copied",
+        "Name":  "trick_house_puzzle",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\trick_house_puzzle"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\union_room",
+        "Status":  "Copied",
+        "Name":  "union_room",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\union_room"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_arena",
+        "Status":  "Copied",
+        "Name":  "battle_arena",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_arena"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_dome",
+        "Status":  "Copied",
+        "Name":  "battle_dome",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_dome"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_factory",
+        "Status":  "Copied",
+        "Name":  "battle_factory",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_factory"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_frontier",
+        "Status":  "Copied",
+        "Name":  "battle_frontier",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_frontier"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_frontier_outside_east",
+        "Status":  "Copied",
+        "Name":  "battle_frontier_outside_east",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_frontier_outside_east"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_frontier_outside_west",
+        "Status":  "Copied",
+        "Name":  "battle_frontier_outside_west",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_frontier_outside_west"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_frontier_ranking_hall",
+        "Status":  "Copied",
+        "Name":  "battle_frontier_ranking_hall",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_frontier_ranking_hall"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_palace",
+        "Status":  "Copied",
+        "Name":  "battle_palace",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_palace"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_pike",
+        "Status":  "Copied",
+        "Name":  "battle_pike",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_pike"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_pyramid",
+        "Status":  "Copied",
+        "Name":  "battle_pyramid",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_pyramid"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\battle_tent",
+        "Status":  "Copied",
+        "Name":  "battle_tent",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\battle_tent"
+    },
+    {
+        "Destination":  "data\\tilesets\\secondary\\hoenn\\trainer_hill",
+        "Status":  "Copied",
+        "Name":  "trainer_hill",
+        "Source":  "pokemon-crossroads\\data\\tilesets\\secondary\\trainer_hill"
+    }
+]

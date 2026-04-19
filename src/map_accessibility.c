@@ -7,16 +7,18 @@
  * 
  * Requirements:
  * - 14.1: Maintain story-based progression for Kanto
- * - 14.2: Unlock all maps in regions 2-4 upon entry
- * - 14.3: Allow gym challenges in any order (regions 2-4)
+ * - 14.2: Unlock all maps in regions 2-3 upon entry
+ * - 14.3: Allow gym challenges in any order (regions 2-3)
  * - 14.4: Kanto maintains linear progression
+ * 
+ * Note: Sinnoh is descoped per ADR-003
  */
 
-EWRAM_DATA static bool8 sRegionMapsUnlocked[4] = {FALSE, FALSE, FALSE, FALSE};
+EWRAM_DATA static bool8 sRegionMapsUnlocked[NUM_REGIONS] = {FALSE, FALSE, FALSE};
 
 void UnlockRegionMaps(u8 region_id)
 {
-    if (region_id <= REGION_SINNOH)
+    if (region_id < NUM_REGIONS)
         sRegionMapsUnlocked[region_id] = TRUE;
 }
 
@@ -33,7 +35,10 @@ bool8 IsMapAccessible(u16 map_id)
     }
     
     // Other regions: all maps accessible once region is unlocked
-    return sRegionMapsUnlocked[current_region];
+    if (current_region < NUM_REGIONS)
+        return sRegionMapsUnlocked[current_region];
+    
+    return FALSE;
 }
 
 bool8 CanChallengeGymsInAnyOrder(u8 region_id)
@@ -42,6 +47,6 @@ bool8 CanChallengeGymsInAnyOrder(u8 region_id)
     if (region_id == REGION_KANTO)
         return FALSE;
     
-    // Johto, Hoenn, Sinnoh: any order
+    // Hoenn, Johto: any order
     return TRUE;
 }
