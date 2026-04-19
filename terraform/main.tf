@@ -24,17 +24,13 @@ terraform {
     }
   }
 
-  # Remote state: uncomment and configure after creating the state bucket.
-  # Until the state bucket exists, run with local state for the initial apply,
-  # then migrate with `terraform init -migrate-state`.
-  #
-  # backend "s3" {
-  #   bucket         = "pokemon-tuxedo-tfstate"
-  #   key            = "pokemon-tuxedo/prod/terraform.tfstate"
-  #   region         = "us-east-1"
-  #   dynamodb_table = "pokemon-tuxedo-tfstate-lock"
-  #   encrypt        = true
-  # }
+  backend "s3" {
+    bucket         = "pokemon-tuxedo-tfstate"
+    key            = "pokemon-tuxedo/prod/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "pokemon-tuxedo-tfstate-lock"
+    encrypt        = true
+  }
 }
 
 provider "aws" {
