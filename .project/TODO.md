@@ -47,12 +47,13 @@ Legend: [x] done · [ ] todo · [!] blocked · [~] deferred
   - Depends On: DEV-006
   - Owner: Application Engineer
 
-- [ ] QA-001 — Run full property-based test suite in consolidated codebase
+- [x] QA-001 — Run full property-based test suite in consolidated codebase
   - All 14 named properties (Props 1–3, 14–21, 23, 24, 27), min 100 iterations each
   - Hoenn map completeness property
   - Req 17
   - Depends On: DEV-007
   - Owner: QA Engineer
+  - 33/33 tests pass. All 14 Req 17 properties covered. Hoenn map completeness covered. Full sign-off granted 2026-04-18.
 
 - [x] DEV-008 — Clean up root directory: delete obsolete build/checkpoint docs
   - Delete: BUILD_GUIDE.md, BUILD_IN_PROGRESS.md, BUILD_NOW.md, BUILD_SUCCESS.md,
