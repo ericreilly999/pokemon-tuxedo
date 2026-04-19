@@ -210,6 +210,55 @@ Legend: [x] done · [ ] todo · [!] blocked · [~] deferred
 
 ---
 
+## PHASE: QoL and Feature Gap Completion
+
+- [x] QA-007 — Write tests for EXP multiplier items (Req 9)
+  - Properties: Lucky Egg ×2, Mystic Egg ×3, Magic Egg ×4, highest-wins, no-egg unchanged,
+    multiplier applied after party distribution, result >= 0, result <= U32_MAX
+  - File: test/test_exp_multipliers.py — 8 properties, 100 iterations each, all passing
+  - Depends On: —
+  - Owner: QA Engineer
+
+- [x] QA-008 — Write tests for game settings UI (Req 11)
+  - Properties: default battle_mode SET, toggle round-trips, speed range 1-10, speed-1 normal,
+    speed-N divides duration, settings persist across save/load
+  - File: test/test_game_settings.py — 6 properties, 100 iterations each, all passing
+  - Depends On: —
+  - Owner: QA Engineer
+
+- [x] QA-009 — Write tests for HM auto-clear (Req 12)
+  - Properties: cut tree clears, smash rock clears, waterfall passable, flash not required,
+    HMs still learnable as battle moves, no party slot required, global passability invariant
+  - File: test/test_hm_simplification.py — 7 properties, 100 iterations each, all passing
+  - Depends On: —
+  - Owner: QA Engineer
+
+- [x] QA-010 — Write tests for trade evolution alternatives (Req 13)
+  - Properties: trade evos trigger at 37, no early evo at 36, normal evos unaffected,
+    item-conditioned evos need item at 37, each evo produces correct species
+  - File: test/test_trade_evolutions.py — 5 properties, 100 iterations each, all passing
+  - Species: Kadabra, Machoke, Graveler, Haunter, Poliwhirl, Slowpoke, Onix, Scyther,
+    Seadra, Porygon, Clamperl (both Huntail and Gorebyss paths)
+  - Depends On: —
+  - Owner: QA Engineer
+
+- [x] QA-011 — Write tests for starter distribution (Req 14)
+  - Properties: Kanto E4 awards unchosen starters (pool size 2), chosen not re-awarded,
+    Hoenn E4 awards all 3 Hoenn starters, Johto E4 awards all 3 Johto starters,
+    starters locked before E4, pool sizes Kanto=2 / Hoenn=3 / Johto=3
+  - File: test/test_starter_distribution.py — 6 properties, 100 iterations each, all passing
+  - Depends On: —
+  - Owner: QA Engineer
+
+- [x] QA-012 — Write tests for PC from pause menu (Req 15)
+  - Properties: PC option present in pause menu, PC opens storage system, player position
+    unchanged after exiting PC, PC available in field, PC absent in battle
+  - File: test/test_pc_pause_menu.py — 5 properties, 100 iterations each, all passing
+  - Depends On: —
+  - Owner: QA Engineer
+
+---
+
 ## PHASE: Phase 6 — Polish and Release
 
 - [~] DEV-014 — Full 3-region playthrough, ROM size check, performance pass
