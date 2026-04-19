@@ -101,7 +101,7 @@ Legend: [x] done · [ ] todo · [!] blocked · [~] deferred
 
 ## PHASE: Rival Scaling, Ace Pokemon, and Region Travel (Reqs 22–25)
 
-- [ ] QA-003 — Write tests for rival role-slot detection (Req 22)
+- [x] QA-003 — Write tests for rival role-slot detection (Req 22)
   - Property: rival in encounter slot uses adaptive formula; rival in Champion slot uses Champion formula
   - Property: no circular dependency when rival occupies Champion slot (Blue/FireRed case)
   - Property: first encounter at 0 badges forces rival to level 5 regardless of formula
@@ -110,7 +110,7 @@ Legend: [x] done · [ ] todo · [!] blocked · [~] deferred
   - Complexity: M
   - Owner: QA Engineer
 
-- [ ] QA-004 — Write tests for ace Pokemon level bonus (Req 23)
+- [x] QA-004 — Write tests for ace Pokemon level bonus (Req 23)
   - Property: last party slot is designated ace for all trainer categories
   - Property: ace level = trainer average + 4 for all trainer types
   - Property: single-Pokemon trainer has that Pokemon treated as ace
@@ -120,7 +120,7 @@ Legend: [x] done · [ ] todo · [!] blocked · [~] deferred
   - Complexity: S
   - Owner: QA Engineer
 
-- [ ] QA-005 — Write tests for ticket+fly travel system (Req 24)
+- [x] QA-005 — Write tests for ticket+fly travel system (Req 24)
   - Property: ticket use warps to starting town; ticket is not consumed
   - Property: starting town auto-registered as fly destination on first arrival
   - Property: fly destination survives save/load round-trip
