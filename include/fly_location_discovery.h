@@ -33,4 +33,8 @@ u16 GetRegionStartingFlyLocation(u8 region_id);
 void InitFlyLocationData(void);
 void ClearFlyLocationData(void);
 
+// Raw array accessors for save system
+u16* GetFlyLocationArray(void);
+u8* GetFlyLocationCountArray(void);
+
 #endif // GUARD_FLY_LOCATION_DISCOVERY_H

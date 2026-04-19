@@ -5,6 +5,10 @@
 #include "constants/songs.h"
 #include "constants/items.h"
 #include "constants/weather.h"
+#include "constants/event_objects.h"
+#include "constants/event_object_movement.h"
+#include "constants/vars.h"
+#include "constants/hoenn_event_stubs.h"
 	.include "asm/macros.inc"
 	.include "constants/constants.inc"
 
