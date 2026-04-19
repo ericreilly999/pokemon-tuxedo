@@ -8,28 +8,27 @@
 #include "constants/moves.h"
 #include "constants/party_menu.h"
 
+/* DEV-022: HM Simplification (Req 12).
+   Cut, Rock Smash, Waterfall, and Flash are always available as field moves
+   without requiring the player to have the move in their party.
+   Badge checks are removed for these four HMs. */
+
 static bool32 IsFieldMoveUnlocked_Cut(void)
 {
-    if (isFrlg)
-        return FlagGet(FLAG_BADGE02_GET);
-
-    return FlagGet(FLAG_BADGE01_GET);
+    /* Req 12: auto-clear on contact -- no badge or HM required */
+    return TRUE;
 }
 
 static bool32 IsFieldMoveUnlocked_Flash(void)
 {
-    if (isFrlg)
-        return FlagGet(FLAG_BADGE01_GET);
-
-    return FlagGet(FLAG_BADGE02_GET);
+    /* Req 12: caves never dark -- Flash always considered available */
+    return TRUE;
 }
 
 static bool32 IsFieldMoveUnlocked_RockSmash(void)
 {
-    if (isFrlg)
-        return FlagGet(FLAG_BADGE06_GET);
-
-    return FlagGet(FLAG_BADGE03_GET);
+    /* Req 12: rocks auto-clear on contact -- no badge or HM required */
+    return TRUE;
 }
 
 static bool32 IsFieldMoveUnlocked_Strength(void)
@@ -57,10 +56,8 @@ static bool32 IsFieldMoveUnlocked_Dive(void)
 
 static bool32 IsFieldMoveUnlocked_Waterfall(void)
 {
-    if (isFrlg)
-        return FlagGet(FLAG_BADGE07_GET);
-
-    return FlagGet(FLAG_BADGE08_GET);
+    /* Req 12: waterfall tiles always passable -- no badge or HM required */
+    return TRUE;
 }
 
 #if OW_ROCK_CLIMB_FIELD_MOVE == TRUE

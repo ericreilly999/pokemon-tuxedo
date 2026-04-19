@@ -23,6 +23,7 @@ struct LevelRange GetWildPokemonLevelRange(u8 badge_count, u8 region_id, bool8 e
 {
     struct LevelRange range;
     u8 region_starting_level;
+    u8 raw_max; /* pre-reduction max, used by trainer calculations */
 
     region_starting_level = GetRegionStartingLevel(region_id);
 
@@ -30,7 +31,7 @@ struct LevelRange GetWildPokemonLevelRange(u8 badge_count, u8 region_id, bool8 e
     if (badge_count == 0)
     {
         range.min_level = 2;
-        range.max_level = 10;
+        raw_max = 10;
     }
     else
     {
@@ -38,15 +39,21 @@ struct LevelRange GetWildPokemonLevelRange(u8 badge_count, u8 region_id, bool8 e
            min = (badge_count * 5) + region_starting_level
            max = min + 10 */
         range.min_level = (badge_count * 5) + region_starting_level;
-        range.max_level = range.min_level + 10;
+        raw_max = range.min_level + 10;
     }
 
     /* Apply Elite Four bonus if defeated (Requirement 2.7) */
     if (elite_four_defeated)
     {
         range.min_level += 10;
-        range.max_level += 10;
+        raw_max += 10;
     }
+
+    /* DEV-023: Wild Pokemon max level reduced by 3 (balance fix).
+       Trainers remain at the original formula max via raw_max stored in
+       trainer_reference_max.  The level cap also uses the original formula. */
+    range.max_level = (raw_max >= 4) ? (raw_max - 3) : 1;
+    range.trainer_reference_max = raw_max;
 
     /* Clamp to valid Pokemon level range (1-100) */
     if (range.min_level < 1)
@@ -59,12 +66,18 @@ struct LevelRange GetWildPokemonLevelRange(u8 badge_count, u8 region_id, bool8 e
     if (range.max_level > 100)
         range.max_level = 100;
 
+    if (range.trainer_reference_max < 1)
+        range.trainer_reference_max = 1;
+    if (range.trainer_reference_max > 100)
+        range.trainer_reference_max = 100;
+
     return range;
 }
 
 /**
  * Calculate gym leader average Pokemon level
- * Formula: wild_max + 5
+ * Formula: trainer_reference_max + 5
+ * DEV-023: Use trainer_reference_max (pre-reduction) so trainers remain challenging.
  */
 u8 GetGymLeaderAverageLevel(u8 badge_count, u8 region_id)
 {
@@ -77,8 +90,8 @@ u8 GetGymLeaderAverageLevel(u8 badge_count, u8 region_id)
     /* Get wild Pokemon level range */
     wild_range = GetWildPokemonLevelRange(badge_count, region_id, elite_four_defeated);
 
-    /* Gym leader average = wild_max + 5 */
-    return wild_range.max_level + 5;
+    /* Gym leader average = trainer_reference_max + 5 (DEV-023) */
+    return wild_range.trainer_reference_max + 5;
 }
 
 /**
@@ -110,7 +123,8 @@ u8 GetGymLeaderAceLevel(u8 gym_leader_id)
 
 /**
  * Calculate Elite Four average Pokemon level
- * Formula: wild_max + 10
+ * Formula: trainer_reference_max + 10
+ * DEV-023: Use trainer_reference_max (pre-reduction) so Elite Four remain at full strength.
  */
 u8 GetEliteFourAverageLevel(u8 badge_count, u8 region_id)
 {
@@ -123,8 +137,8 @@ u8 GetEliteFourAverageLevel(u8 badge_count, u8 region_id)
     /* Get wild Pokemon level range */
     wild_range = GetWildPokemonLevelRange(badge_count, region_id, elite_four_defeated);
 
-    /* Elite Four average = wild_max + 10 */
-    return wild_range.max_level + 10;
+    /* Elite Four average = trainer_reference_max + 10 (DEV-023) */
+    return wild_range.trainer_reference_max + 10;
 }
 
 /**
@@ -232,8 +246,9 @@ u8 GetRivalAverageLevel(u8 badge_count, u8 region_id, bool8 is_champion_slot)
 
     if (is_champion_slot)
     {
+        /* DEV-023: Use trainer_reference_max so Champion level is not reduced */
         range = GetWildPokemonLevelRange(badge_count, region_id, FALSE);
-        result = (u16)range.max_level + 15;
+        result = (u16)range.trainer_reference_max + 15;
         if (result < 1) result = 1;
         if (result > 100) result = 100;
         return (u8)result;
@@ -322,6 +337,7 @@ struct LevelRange GetWildPokemonLevelRangeForRegion(u8 badge_count, u8 region_id
     struct LevelRange range;
     u8 region_starting_level;
     u8 base_min;
+    u8 raw_max;
 
     /* Get the starting level for this region */
     region_starting_level = GetRegionStartingLevel(region_id);
@@ -330,7 +346,7 @@ struct LevelRange GetWildPokemonLevelRangeForRegion(u8 badge_count, u8 region_id
     if (badge_count == 0 && region_id == REGION_KANTO)
     {
         range.min_level = 2;
-        range.max_level = 10;
+        raw_max = 10;
     }
     else
     {
@@ -339,7 +355,7 @@ struct LevelRange GetWildPokemonLevelRangeForRegion(u8 badge_count, u8 region_id
            max = min + 10 */
         base_min = region_starting_level + (badge_count * 5);
         range.min_level = base_min;
-        range.max_level = base_min + 10;
+        raw_max = base_min + 10;
     }
 
     /* Apply Elite Four bonus if defeated in this region (+10 levels).
@@ -348,8 +364,12 @@ struct LevelRange GetWildPokemonLevelRangeForRegion(u8 badge_count, u8 region_id
     if (elite_four_defeated)
     {
         range.min_level += 10;
-        range.max_level += 10;
+        raw_max += 10;
     }
+
+    /* DEV-023: Wild max reduced by 3; trainer_reference_max keeps original. */
+    range.max_level = (raw_max >= 4) ? (raw_max - 3) : 1;
+    range.trainer_reference_max = raw_max;
 
     /* Clamp to valid Pokemon level range (1-100) */
     if (range.min_level < 1)
@@ -361,6 +381,11 @@ struct LevelRange GetWildPokemonLevelRangeForRegion(u8 badge_count, u8 region_id
         range.max_level = 1;
     if (range.max_level > 100)
         range.max_level = 100;
+
+    if (range.trainer_reference_max < 1)
+        range.trainer_reference_max = 1;
+    if (range.trainer_reference_max > 100)
+        range.trainer_reference_max = 100;
 
     return range;
 }
@@ -400,8 +425,9 @@ u8 GetTrainerAverageLevelForRegion(u8 badge_count, u8 region_id, u8 trainer_type
     /* Get wild Pokemon level range for this region */
     wild_range = GetWildPokemonLevelRangeForRegion(badge_count, region_id, elite_four_defeated);
 
-    /* Base trainer level is the wild Pokemon max level */
-    base_level = wild_range.max_level;
+    /* DEV-023: Trainers use trainer_reference_max (pre-reduction original wild max)
+       so trainer difficulty is not affected by the -3 wild level balance adjustment. */
+    base_level = wild_range.trainer_reference_max;
 
     /* Apply trainer type bonus */
     switch (trainer_type)

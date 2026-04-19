@@ -23,6 +23,10 @@ static const u8 sRegionStartingLevels[] = {
 /* Global region state - stored in EWRAM for save data integration */
 EWRAM_DATA static struct RegionState sRegionState = {0};
 
+/* DEV-027 / Req 14: Chosen Kanto starter species, set during Oak speech / new game.
+   Stored in EWRAM; persisted via save data.  0 = not yet chosen. */
+EWRAM_DATA static u16 sChosenKantoStarter = 0;
+
 /**
  * Initialize region state for a new game.
  * Sets Kanto as current region, all other regions locked.
@@ -346,6 +350,9 @@ bool8 CheckEliteFourDefeatAndUnlock(u8 region_id)
 
     /* Mark Elite Four as defeated */
     SetEliteFourDefeated(region_id);
+
+    /* DEV-027 / Req 14: Trigger post-E4 starter distribution for this region. */
+    TriggerStarterDistribution(region_id);
 
     /* Unlock next region based on defeated region (ADR-004 sequence) */
     switch (region_id)
@@ -685,4 +692,89 @@ bool8 UseRegionTicket(u16 ticket_item)
 
     /* Execute the transition (updates region state) */
     return TransitionToRegion(target_region);
+}
+
+
+/* ===========================================================
+   Starter Distribution System (DEV-027 / Req 14)
+   =========================================================== */
+
+/*
+ * Record the species of the Kanto starter chosen by the player.
+ * Called from oak_speech.c / new_game.c immediately after the player
+ * picks a starter from Professor Oak.
+ */
+void SetChosenKantoStarter(u16 species)
+{
+    sChosenKantoStarter = species;
+}
+
+/*
+ * Return the species of the chosen Kanto starter.
+ * Returns 0 if no starter has been chosen yet.
+ */
+u16 GetChosenKantoStarter(void)
+{
+    return sChosenKantoStarter;
+}
+
+/*
+ * Set the availability flag for a region's post-E4 starter distribution.
+ * This flag gates the distribution NPC dialogue so that NPCs only offer
+ * starters after the player has cleared the corresponding Elite Four.
+ *
+ * For Kanto: sets FLAG_KANTO_STARTERS_AVAILABLE
+ * For Hoenn: sets FLAG_HOENN_STARTERS_AVAILABLE
+ * For Johto: sets FLAG_JOHTO_STARTERS_AVAILABLE
+ *
+ * Called automatically by CheckEliteFourDefeatAndUnlock().
+ */
+void TriggerStarterDistribution(u8 region_id)
+{
+    switch (region_id)
+    {
+    case REGION_KANTO:
+        FlagSet(FLAG_KANTO_STARTERS_AVAILABLE);
+        break;
+    case REGION_HOENN:
+        FlagSet(FLAG_HOENN_STARTERS_AVAILABLE);
+        break;
+    case REGION_JOHTO:
+        FlagSet(FLAG_JOHTO_STARTERS_AVAILABLE);
+        break;
+    default:
+        break;
+    }
+}
+
+/*
+ * Check whether a given Kanto starter species is available for distribution.
+ *
+ * Availability rules:
+ *   1. The Kanto starters availability flag must be set (E4 must be defeated).
+ *   2. The species must be one of the three Kanto starters.
+ *   3. The species must NOT be the one the player originally chose.
+ *
+ * The player's chosen starter is excluded so they cannot obtain a second copy
+ * through this system.
+ *
+ * Returns TRUE if the species is available, FALSE otherwise.
+ */
+bool8 IsKantoStarterAvailable(u16 species)
+{
+    /* E4 must be defeated first */
+    if (!FlagGet(FLAG_KANTO_STARTERS_AVAILABLE))
+        return FALSE;
+
+    /* Species must be a Kanto starter but not the one originally chosen */
+    if (species != SPECIES_KANTO_STARTER_1
+     && species != SPECIES_KANTO_STARTER_2
+     && species != SPECIES_KANTO_STARTER_3)
+        return FALSE;
+
+    /* Exclude the originally chosen starter */
+    if (species == sChosenKantoStarter)
+        return FALSE;
+
+    return TRUE;
 }

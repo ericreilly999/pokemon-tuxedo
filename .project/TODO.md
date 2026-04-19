@@ -212,6 +212,34 @@ Legend: [x] done · [ ] todo · [!] blocked · [~] deferred
 
 ## PHASE: QoL and Feature Gap Completion
 
+- [x] DEV-022 — HM Simplification — auto-clear on contact + add Flash (Req 12)
+  - Cut/Rock Smash/Waterfall unlock functions always return TRUE; Flash unlock always TRUE;
+    Flash field use always returns TRUE (FLAG_SYS_USE_FLASH pre-set)
+  - Owner: Application Engineer
+
+- [x] DEV-023 — Wild Pokemon level scaling balance fix (Req 2 / level_scaler.c)
+  - Wild max reduced by 3; trainer functions use original wild max
+  - Owner: Application Engineer
+
+- [x] DEV-024 — Wire EXP multipliers into battle exp award (Req 9)
+  - ApplyExperienceMultipliers now calls GetActiveExpMultiplier for Mystic/Magic Egg 3x/4x;
+    Lucky Egg already handled by HOLD_EFFECT_LUCKY_EGG (150%)
+  - Owner: Application Engineer
+
+- [x] DEV-025 — Game Settings UI + PC from Pause Menu (Reqs 11 + 15)
+  - PC option added to normal/debug start menus; Settings stub opens Options menu
+  - Owner: Application Engineer
+
+- [x] DEV-026 — Trade evolution at level 37 (Req 13)
+  - EVO_LEVEL 37 entries added for Kadabra, Machoke, Graveler, Haunter;
+    EVO_LEVEL 37 + item entries added for all item-conditioned trade evos
+  - Owner: Application Engineer
+
+- [x] DEV-027 — Starter distribution post-E4 (Req 14)
+  - CheckEliteFourDefeatAndUnlock now sets starter distribution flags;
+    region_manager.c records chosen Kanto starter and computes award pool
+  - Owner: Application Engineer
+
 - [x] QA-007 — Write tests for EXP multiplier items (Req 9)
   - Properties: Lucky Egg ×2, Mystic Egg ×3, Magic Egg ×4, highest-wins, no-egg unchanged,
     multiplier applied after party distribution, result >= 0, result <= U32_MAX

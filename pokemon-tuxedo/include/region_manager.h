@@ -108,13 +108,53 @@ bool8 UseRegionTicket(u16 ticket_item);
 // Returns NUM_REGIONS if ticket is invalid
 u8 GetRegionForTicket(u16 ticket_item);
 
-// Get the global region state (for save/load)
+/* Get the global region state (for save/load) */
 struct RegionState* GetRegionState(void);
 
-// Initialize region state (for new game)
+/* Initialize region state (for new game) */
 void InitRegionState(void);
 
-// Sync region state from saved flags (for loading saved games)
+/* Sync region state from saved flags (for loading saved games) */
 void SyncRegionStateFromFlags(void);
 
-#endif // GUARD_REGION_MANAGER_H
+/* ===========================================================
+   Starter Distribution System (DEV-027 / Req 14)
+   After each E4 defeat, unchosen starters become available.
+   =========================================================== */
+
+/* Flag IDs for post-E4 starter distribution (using unused special flags) */
+/* These flags gate the distribution NPC dialogue */
+#define FLAG_KANTO_STARTERS_AVAILABLE    (SPECIAL_FLAGS_START + 0x10)
+#define FLAG_HOENN_STARTERS_AVAILABLE    (SPECIAL_FLAGS_START + 0x11)
+#define FLAG_JOHTO_STARTERS_AVAILABLE    (SPECIAL_FLAGS_START + 0x12)
+
+/* Kanto starter species IDs */
+#define SPECIES_KANTO_STARTER_1  1    /* Bulbasaur */
+#define SPECIES_KANTO_STARTER_2  4    /* Charmander */
+#define SPECIES_KANTO_STARTER_3  7    /* Squirtle */
+
+/* Hoenn starter species IDs */
+#define SPECIES_HOENN_STARTER_1  252  /* Treecko */
+#define SPECIES_HOENN_STARTER_2  255  /* Torchic */
+#define SPECIES_HOENN_STARTER_3  258  /* Mudkip */
+
+/* Johto starter species IDs */
+#define SPECIES_JOHTO_STARTER_1  152  /* Chikorita */
+#define SPECIES_JOHTO_STARTER_2  155  /* Cyndaquil */
+#define SPECIES_JOHTO_STARTER_3  158  /* Totodile */
+
+/* Record the chosen Kanto starter (called from oak_speech.c / new_game.c) */
+void SetChosenKantoStarter(u16 species);
+
+/* Get the chosen Kanto starter species */
+u16 GetChosenKantoStarter(void);
+
+/* Trigger starter distribution for a region's E4 defeat.
+   Sets the appropriate availability flag so NPCs can offer the starters. */
+void TriggerStarterDistribution(u8 region_id);
+
+/* Check if a given Kanto starter species is available post-E4.
+   The chosen starter is excluded from the pool; the other two are available. */
+bool8 IsKantoStarterAvailable(u16 species);
+
+#endif /* GUARD_REGION_MANAGER_H */

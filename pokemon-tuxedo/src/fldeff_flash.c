@@ -71,8 +71,8 @@ static const u32 sCaveTransitionTiles[] = INCBIN_U32("graphics/cave_transition/t
 
 bool32 SetUpFieldMove_Flash(void)
 {
-    // In Ruby and Sapphire, Registeel's tomb is opened by using Fly. In Emerald,
-    // Flash is used instead.
+    /* In Ruby and Sapphire, Registeel's tomb is opened by using Fly. In Emerald,
+       Flash is used instead. */
     if (ShouldDoBrailleRegisteelEffect())
     {
         gSpecialVar_Result = GetCursorSelectionMonId();
@@ -80,12 +80,12 @@ bool32 SetUpFieldMove_Flash(void)
         gPostMenuFieldCallback = SetUpPuzzleEffectRegisteel;
         return TRUE;
     }
-    else if (gMapHeader.cave == TRUE && !FlagGet(FLAG_SYS_USE_FLASH))
-    {
-        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
-        gPostMenuFieldCallback = FieldCallback_Flash;
-        return TRUE;
-    }
+
+    /* DEV-022 / Req 12: Caves are never dark in Pokemon Tuxedo.
+       Pre-set FLAG_SYS_USE_FLASH so the engine always treats caves as lit.
+       Flash remains a learnable battle move but has no field-darkness effect. */
+    if (gMapHeader.cave == TRUE)
+        FlagSet(FLAG_SYS_USE_FLASH);
 
     return FALSE;
 }

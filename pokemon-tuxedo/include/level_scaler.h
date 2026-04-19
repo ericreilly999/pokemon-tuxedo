@@ -3,10 +3,13 @@
 
 #include "global.h"
 
-/* Level range structure for wild Pokemon */
+/* Level range structure for wild Pokemon.
+   trainer_reference_max: the pre-reduction max used by trainer level formulas
+   (DEV-023: wild max is reduced by 3 for balance, trainers use the original max) */
 struct LevelRange {
     u8 min_level;
     u8 max_level;
+    u8 trainer_reference_max;
 };
 
 /* Trainer type constants for GetTrainerAverageLevelForRegion */

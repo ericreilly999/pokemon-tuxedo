@@ -1,4 +1,5 @@
 #include "global.h"
+#include "exp_multipliers.h"
 #include "battle.h"
 #include "battle_hold_effects.h"
 #include "battle_message.h"
@@ -11845,6 +11846,17 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
         *expAmount = (*expAmount * 150) / 100;
     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
         *expAmount = (*expAmount * 150) / 100;
+
+    /* DEV-024 / Req 9: Apply custom egg multiplier items from bag.
+       Priority: Magic Egg (4x) > Mystic Egg (3x) > Lucky Egg (2x, bag version).
+       Only the highest applies (GetActiveExpMultiplier returns highest).
+       Lucky Egg as a held item is already handled above at 1.5x per vanilla formula.
+       These bag items use integer multiply directly: 2x, 3x, or 4x as specified. */
+    {
+        u8 tuxedo_mult = GetActiveExpMultiplier();
+        if (tuxedo_mult > 1)
+            *expAmount = (*expAmount) * (s32)tuxedo_mult;
+    }
     if (B_UNEVOLVED_EXP_MULTIPLIER >= GEN_6 && IsMonPastEvolutionLevel(&gPlayerParty[expGetterMonId]))
         *expAmount = (*expAmount * 4915) / 4096;
     if (B_AFFECTION_MECHANICS == TRUE && GetMonAffectionHearts(&gPlayerParty[expGetterMonId]) >= AFFECTION_FOUR_HEARTS)

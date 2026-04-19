@@ -1,5 +1,6 @@
 #include "global.h"
 #include "config/save.h"
+#include "pokemon_storage_system.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
 #include "battle_pyramid_bag.h"
@@ -51,7 +52,7 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 
-// Menu actions
+/* Menu actions */
 enum
 {
     MENU_ACTION_POKEDEX,
@@ -69,6 +70,9 @@ enum
     MENU_ACTION_PYRAMID_BAG,
     MENU_ACTION_DEBUG,
     MENU_ACTION_DEXNAV,
+    /* DEV-025: PC and Settings added to pause menu (Req 15, Req 11) */
+    MENU_ACTION_PC,
+    MENU_ACTION_SETTINGS,
 };
 
 // Save status
@@ -111,6 +115,9 @@ static bool8 StartMenuBattlePyramidRetireCallback(void);
 static bool8 StartMenuBattlePyramidBagCallback(void);
 static bool8 StartMenuDebugCallback(void);
 static bool8 StartMenuDexNavCallback(void);
+/* DEV-025: PC and Settings menu callbacks */
+static bool8 StartMenuPCCallback(void);
+static bool8 StartMenuSettingsCallback(void);
 
 // Menu callbacks
 static bool8 SaveStartCallback(void);
@@ -188,6 +195,9 @@ static const struct WindowTemplate sWindowTemplate_PyramidPeak = {
 };
 
 static const u8 sText_MenuDebug[] = _("DEBUG");
+/* DEV-025: Menu label text for PC and Settings pause menu entries */
+static const u8 sText_MenuPC[] = _("PC");
+static const u8 sText_MenuSettings[] = _("SETTINGS");
 
 static const struct MenuAction sStartMenuItems[] =
 {
@@ -206,6 +216,10 @@ static const struct MenuAction sStartMenuItems[] =
     [MENU_ACTION_PYRAMID_BAG]     = {gText_MenuBag,     {.u8_void = StartMenuBattlePyramidBagCallback}},
     [MENU_ACTION_DEBUG]           = {sText_MenuDebug,   {.u8_void = StartMenuDebugCallback}},
     [MENU_ACTION_DEXNAV]          = {gText_MenuDexNav,  {.u8_void = StartMenuDexNavCallback}},
+    /* DEV-025: PC storage access from field pause menu (Req 15) */
+    [MENU_ACTION_PC]              = {sText_MenuPC,       {.u8_void = StartMenuPCCallback}},
+    /* DEV-025: Settings opens existing Options screen (Req 11 stub) */
+    [MENU_ACTION_SETTINGS]        = {sText_MenuSettings, {.u8_void = StartMenuSettingsCallback}},
 };
 
 static const struct BgTemplate sBgTemplates_LinkBattleSave[] =
@@ -348,6 +362,8 @@ static void BuildNormalStartMenu(void)
     AddStartMenuAction(MENU_ACTION_PLAYER);
     AddStartMenuAction(MENU_ACTION_SAVE);
     AddStartMenuAction(MENU_ACTION_OPTION);
+    /* DEV-025: PC storage accessible from field pause menu (Req 15) */
+    AddStartMenuAction(MENU_ACTION_PC);
     AddStartMenuAction(MENU_ACTION_EXIT);
 }
 
@@ -364,6 +380,8 @@ static void BuildDebugStartMenu(void)
     AddStartMenuAction(MENU_ACTION_PLAYER);
     AddStartMenuAction(MENU_ACTION_SAVE);
     AddStartMenuAction(MENU_ACTION_OPTION);
+    /* DEV-025: PC accessible in debug menu too (Req 15) */
+    AddStartMenuAction(MENU_ACTION_PC);
 }
 
 static void BuildSafariZoneStartMenu(void)
@@ -789,10 +807,52 @@ static bool8 StartMenuOptionCallback(void)
     return FALSE;
 }
 
+/* DEV-025: PC from Pause Menu (Req 15).
+   Opens the Pokemon Storage System PC from the field pause menu.
+   Player position is preserved automatically (no warp performed).
+   The storage system task returns to field via gMain.savedCallback. */
+static bool8 StartMenuPCCallback(void)
+{
+    if (!gPaletteFade.active)
+    {
+        PlayRainStoppingSoundEffect();
+        RemoveExtraStartMenuWindows();
+        CleanupOverworldWindowsAndTilemaps();
+        /* ShowPokemonStorageSystemPC opens the box screen and locks controls.
+           When the player exits, the task restores field via savedCallback. */
+        ShowPokemonStorageSystemPC();
+        gMain.savedCallback = CB2_ReturnToFieldWithOpenMenu;
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+/* DEV-025: Settings from Pause Menu (Req 11 stub).
+   Opens the existing Options menu as the Settings screen.
+   A dedicated Settings UI can be wired here when the custom screen is built.
+   TODO: Replace with custom GameSettings UI (SetBattleMode / SetGameSpeed). */
+static bool8 StartMenuSettingsCallback(void)
+{
+    if (!gPaletteFade.active)
+    {
+        PlayRainStoppingSoundEffect();
+        RemoveExtraStartMenuWindows();
+        CleanupOverworldWindowsAndTilemaps();
+        SetMainCallback2(CB2_InitOptionMenu);
+        gMain.savedCallback = CB2_ReturnToFieldWithOpenMenu;
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 static bool8 StartMenuExitCallback(void)
 {
     RemoveExtraStartMenuWindows();
-    HideStartMenu(); // Hide start menu
+    HideStartMenu(); /* Hide start menu */
 
     return TRUE;
 }
