@@ -25,6 +25,7 @@
 #include "party_menu.h"
 #include "quest_log.h"
 #include "region_map.h"
+#include "region_manager.h"
 #include "script.h"
 #include "strings.h"
 #include "task.h"
@@ -922,4 +923,125 @@ void ItemUse_SetQuestLogEvent(u8 eventId, struct Pokemon *pokemon, u16 itemId, u
         data->species = 0xFFFF;
     SetQuestLogEvent(eventId, (void *)data);
     Free(data);
+}
+
+// ==========================================
+// Region Ticket Functions
+// Implements: Requirements 10.1, 10.2, 10.3, 10.4, 10.5
+// ==========================================
+
+// Text strings for region tickets
+static const u8 sText_HoennTicketUsed[] = _("Used the HOENN TICKET.\nTraveling to Littleroot Town…");
+static const u8 sText_HoennRegionLocked[] = _("The HOENN region is not\naccessible yet.");
+static const u8 sText_JohtoTicketUsed[] = _("Used the JOHTO TICKET.\nTraveling to New Bark Town…");
+static const u8 sText_JohtoRegionLocked[] = _("The JOHTO region is not\naccessible yet.");
+
+// Callback for Hoenn ticket warp
+// Executes the actual warp after bag menu closes
+// Party and inventory are preserved (stored in save data) - Req 10.2, 10.3
+static void ItemUseOnFieldCB_HoennTicket(u8 taskId)
+{
+    struct RegionWarpData warp_data;
+    
+    // Execute region transition (updates Region_Manager state) - Req 10.4
+    TransitionToRegion(REGION_HOENN);
+    
+    // Get the starting location for Hoenn
+    GetRegionStartLocation(REGION_HOENN, &warp_data);
+    
+    // Execute the warp - Req 10.1
+    SetWarpDestination(warp_data.mapGroup, warp_data.mapNum, warp_data.warpId, warp_data.x, warp_data.y);
+    DoWarp();
+    ResetInitialPlayerAvatarState();
+    DestroyTask(taskId);
+}
+
+// Callback for Johto ticket warp (stub - Johto maps not yet integrated)
+static void ItemUseOnFieldCB_JohtoTicket(u8 taskId)
+{
+    struct RegionWarpData warp_data;
+    
+    // Execute region transition (updates Region_Manager state) - Req 10.4
+    TransitionToRegion(REGION_JOHTO);
+    
+    // Get the starting location for Johto
+    GetRegionStartLocation(REGION_JOHTO, &warp_data);
+    
+    // Execute the warp - Req 10.1
+    // Note: This will warp to MAP_UNDEFINED until Johto maps are integrated
+    SetWarpDestination(warp_data.mapGroup, warp_data.mapNum, warp_data.warpId, warp_data.x, warp_data.y);
+    DoWarp();
+    ResetInitialPlayerAvatarState();
+    DestroyTask(taskId);
+}
+
+/**
+ * ItemUseOutOfBattle_HoennTicket
+ * 
+ * Handles using the Hoenn Ticket from the bag menu.
+ * If Hoenn is unlocked, warps the player to Littleroot Town.
+ * If Hoenn is locked, displays an error message.
+ * 
+ * Party and inventory are preserved during transition (Req 10.2, 10.3)
+ * Region_Manager state is updated on transition (Req 10.4)
+ * 
+ * Validates: Requirements 10.1, 10.2, 10.3, 10.4, 10.5
+ */
+void ItemUseOutOfBattle_HoennTicket(u8 taskId)
+{
+    // Check if transition is allowed using CanTransitionToRegion - Req 10.5
+    if (CanTransitionToRegion(REGION_HOENN))
+    {
+        // Log the item use event
+        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, gSpecialVar_ItemId, 0xFFFF);
+        
+        // Set up the warp callback
+        sItemUseOnFieldCB = ItemUseOnFieldCB_HoennTicket;
+        SetUpItemUseOnFieldCallback(taskId);
+    }
+    else
+    {
+        // Region is locked - display error message - Req 10.5
+        if (gTasks[taskId].data[3] == 0)
+            DisplayItemMessageInBag(taskId, FONT_NORMAL, sText_HoennRegionLocked, Task_ReturnToBagFromContextMenu);
+        else
+            DisplayItemMessageOnField(taskId, FONT_NORMAL, sText_HoennRegionLocked, Task_ItemUse_CloseMessageBoxAndReturnToField);
+    }
+}
+
+/**
+ * ItemUseOutOfBattle_JohtoTicket
+ * 
+ * Handles using the Johto Ticket from the bag menu.
+ * If Johto is unlocked, warps the player to New Bark Town.
+ * If Johto is locked, displays an error message.
+ * 
+ * Note: Johto maps are not yet integrated. The warp will go to MAP_UNDEFINED
+ * until Johto is fully implemented (Phase 5 in tasks.md).
+ * 
+ * Party and inventory are preserved during transition (Req 10.2, 10.3)
+ * Region_Manager state is updated on transition (Req 10.4)
+ * 
+ * Validates: Requirements 10.1, 10.2, 10.3, 10.4, 10.5
+ */
+void ItemUseOutOfBattle_JohtoTicket(u8 taskId)
+{
+    // Check if transition is allowed using CanTransitionToRegion - Req 10.5
+    if (CanTransitionToRegion(REGION_JOHTO))
+    {
+        // Log the item use event
+        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, gSpecialVar_ItemId, 0xFFFF);
+        
+        // Set up the warp callback
+        sItemUseOnFieldCB = ItemUseOnFieldCB_JohtoTicket;
+        SetUpItemUseOnFieldCallback(taskId);
+    }
+    else
+    {
+        // Region is locked - display error message - Req 10.5
+        if (gTasks[taskId].data[3] == 0)
+            DisplayItemMessageInBag(taskId, FONT_NORMAL, sText_JohtoRegionLocked, Task_ReturnToBagFromContextMenu);
+        else
+            DisplayItemMessageOnField(taskId, FONT_NORMAL, sText_JohtoRegionLocked, Task_ItemUse_CloseMessageBoxAndReturnToField);
+    }
 }

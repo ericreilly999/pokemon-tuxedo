@@ -1,91 +1,184 @@
-name: CI
+name: Build Pokemon Tuxedo ROM
 
+# Triggers:
+#   - push to master  → build, test, upload ROM to S3
+#   - pull_request    → build and test only, no upload
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
+    branches: [master]
+
+# NOTE: This pipeline does NOT use the devkitpro/devkitarm Docker image as a
+# container: directive because GitHub Actions container jobs require the runner
+# to mount the workspace into the container, which works on Linux runners but
+# adds complexity for the agbcc build step that must compile and install into
+# the repo root. Instead, we replicate the upstream pokefirered CI approach:
+# build agbcc from source on ubuntu-latest and install arm-none-eabi toolchain
+# via apt. This is the same strategy the upstream pret/pokefirered repo uses
+# and is proven to work. The devkitPro Docker image is noted as an alternative
+# in the discrepancy document — if the build system is later updated to use
+# devkitARM exclusively (dropping agbcc), switching to that image becomes
+# straightforward.
+#
+# MODERN=1 is required. The MODERN flag enables the modern GBA SDK build path
+# which uses arm-none-eabi-gcc for C compilation instead of agbcc. This is
+# necessary because the expanded map_groups.json (104+ Hoenn maps) is processed
+# by the modern mapjson tool. The vanilla pokefirered COMPARE=1 workflow uses
+# the old mapjson that only understands vanilla FireRed maps — that will always
+# fail on this ROM hack and must never be used here.
 
 jobs:
-  build:
+  build-and-test:
+    name: Build ROM and Run Tests
     runs-on: ubuntu-latest
-    env:
-      GAME_VERSION: FIRERED
-      GAME_LANGUAGE: ENGLISH
-      GAME_REVISION: 0
-      MODERN: 0
-      COMPARE: 1
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      # -----------------------------------------------------------------------
+      # Source checkout
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      # agbcc is the custom C89 GBA compiler used by pokefirered. It is not
+      # available in any package manager and must be compiled from source.
       - name: Checkout agbcc
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
-          path: 'agbcc'
-          repository: 'pret/agbcc'
+          repository: pret/agbcc
+          path: agbcc
 
-      - name: Checkout symbols
-        if: ${{ github.event_name == 'push' }}
-        uses: actions/checkout@master
-        with:
-          path: 'symbols'
-          ref: 'symbols'
-
-      - name: Install binutils
+      # -----------------------------------------------------------------------
+      # Toolchain installation
+      # -----------------------------------------------------------------------
+      # arm-none-eabi-* provides the assembler, linker, and objcopy needed by
+      # the Makefile. gcc-arm-none-eabi is used for compilation under MODERN=1.
+      # libpng-dev is required by the graphics tools in tools/.
+      - name: Install arm toolchain and dependencies
         run: |
-          sudo apt update
-          sudo apt install gcc-arm-none-eabi binutils-arm-none-eabi libpng-dev
-        # build-essential and git are already installed
-        # gcc-arm-none-eabi is only needed for the modern build
-        # as an alternative to dkP
+          sudo apt-get update -q
+          sudo apt-get install -y --no-install-recommends \
+            gcc-arm-none-eabi \
+            binutils-arm-none-eabi \
+            libnewlib-arm-none-eabi \
+            libpng-dev
 
-      - name: Install agbcc
+      - name: Build and install agbcc
+        working-directory: agbcc
         run: |
           ./build.sh
           ./install.sh ../
-        working-directory: ./agbcc
 
-      - name: Compare FireRed
-        run: |
-          make -j${nproc} all syms
-
-      - name: Compare FireRed rev1
+      # -----------------------------------------------------------------------
+      # ROM build
+      # -----------------------------------------------------------------------
+      # MODERN=1 uses arm-none-eabi-gcc and the modern mapjson tool which
+      # supports the expanded map_groups.json with Hoenn maps.
+      # COMPARE is explicitly set to 0 — never byte-compare against vanilla
+      # FireRed on a ROM hack; that will always fail.
+      - name: Build ROM
         env:
-          GAME_REVISION: 1
-        run: |
-          make -j${nproc} all syms
+          GAME_VERSION: FIRERED
+          GAME_LANGUAGE: ENGLISH
+          GAME_REVISION: 0
+        run: make -j$(nproc) MODERN=1
 
-      - name: Compare LeafGreen
-        env:
-          GAME_VERSION: LEAFGREEN
+      # ROM size gate: GBA cartridges are hard-limited to 32 MB; this project
+      # targets the 16 MB (128 Mbit) flash cart size. Exceeding 16 MB means
+      # the ROM will not fit on target hardware and is treated as a build
+      # failure, not a warning.
+      - name: Validate ROM size
         run: |
-          make -j${nproc} all syms
+          ROM=pokefirered_modern.gba
+          if [ ! -f "$ROM" ]; then
+            echo "ERROR: $ROM not found — build may have failed silently."
+            exit 1
+          fi
+          SIZE=$(stat -c%s "$ROM")
+          MAX=16777216
+          echo "ROM size: $SIZE bytes ($(( SIZE / 1024 ))KB)"
+          echo "Maximum:  $MAX bytes (16384KB / 16MB)"
+          if [ "$SIZE" -gt "$MAX" ]; then
+            echo "FAIL: ROM exceeds 16 MB limit by $(( SIZE - MAX )) bytes."
+            exit 1
+          fi
+          echo "PASS: ROM is within size limit."
 
-      - name: Compare LeafGreen rev1
-        env:
-          GAME_VERSION: LEAFGREEN
-          GAME_REVISION: 1
-        run: |
-          make -j${nproc} all syms
+      # -----------------------------------------------------------------------
+      # Test suite
+      # -----------------------------------------------------------------------
+      # The Python test suite in test/ uses only the Python standard library
+      # (no third-party packages, no requirements.txt). pytest is used as the
+      # runner for consistent output and exit-code semantics.
+      - name: Install pytest
+        run: pip install --quiet pytest
 
-      - name: Build Modern
-        env:
-          MODERN: 1
-          COMPARE: 0
-        run: |
-          make -j${nproc} all
+      - name: Run Python test suite
+        run: cd test && python -m pytest -v
 
-      - name: Move symfiles
-        if: ${{ github.event_name == 'push' }}
-        run: |
-          cp *.sym symbols/
-          echo "SYMBOLS_COMMIT_MSG=$( git log --format=%s ${GITHUB_SHA} )" >> $GITHUB_ENV
-
-      - name: Update symfiles
-        if: ${{ github.event_name == 'push' }}
-        uses: EndBug/add-and-commit@v7
+      # -----------------------------------------------------------------------
+      # Upload ROM artifact (GitHub Actions artifact — always, for inspection)
+      # -----------------------------------------------------------------------
+      # This uploads the ROM as a GitHub Actions artifact on every run so that
+      # PR reviewers can download and test in an emulator without a full local
+      # build. The S3 upload below is master-only and is the canonical release.
+      - name: Upload ROM as workflow artifact
+        uses: actions/upload-artifact@v4
         with:
-          branch: symbols
-          cwd: "./symbols"
-          add: "*.sym"
-          message: ${{ env.SYMBOLS_COMMIT_MSG }}
+          name: pokefirered-${{ github.sha }}
+          path: pokefirered_modern.gba
+          retention-days: 30
+          if-no-files-found: error
+
+      # -----------------------------------------------------------------------
+      # S3 upload — master branch only
+      # -----------------------------------------------------------------------
+      # The ROM is the product. S3 is used as a file distribution store.
+      # The key is fixed (pokemon-tuxedo-latest.gba) and is overwritten on
+      # every master push — intentional. Versioning is handled via git tags.
+      #
+      # Required GitHub Secrets:
+      #   AWS_ACCESS_KEY_ID     — access key for the pokemon-tuxedo-ci IAM user
+      #   AWS_SECRET_ACCESS_KEY — secret key for the pokemon-tuxedo-ci IAM user
+      #
+      # The IAM user has s3:PutObject on exactly one key:
+      #   arn:aws:s3:::pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba
+      - name: Upload ROM to S3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          echo "Uploading ROM to S3..."
+          aws s3 cp pokefirered_modern.gba \
+            s3://pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba \
+            --no-progress
+          echo "Upload complete: s3://pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba"
+
+      # Log the deployment for the DevOps deployment record.
+      # Writes a log entry to deployment-log.md and commits it back.
+      # If the repo has branch protection that blocks this, the alternative is
+      # to write deployment events to a separate DynamoDB table or CloudWatch
+      # log group — raise with Project Manager if commit-back is blocked.
+      - name: Log deployment
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          GH_SHA: ${{ github.sha }}
+          GH_RUN_ID: ${{ github.run_id }}
+          GH_ACTOR: ${{ github.actor }}
+        run: |
+          DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          ROM=pokefirered_modern.gba
+          SIZE=$(stat -c%s "$ROM")
+          LOG=".project/deployment-log.md"
+
+          printf '\n## Deploy — %s\n\n| Field | Value |\n|-------|-------|\n| Commit | `%s` |\n| Run | [%s](https://github.com/${{ github.repository }}/actions/runs/%s) |\n| Actor | %s |\n| ROM size | %s bytes |\n| S3 key | s3://pokemon-tuxedo-releases/pokemon-tuxedo-latest.gba |\n| Result | SUCCESS |\n' \
+            "$DATE" "$GH_SHA" "$GH_RUN_ID" "$GH_RUN_ID" "$GH_ACTOR" "$SIZE" \
+            >> "$LOG"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$LOG"
+          git diff --cached --quiet || git commit -m "chore: log deployment ${GH_SHA:0:8} [skip ci]"
+          git push

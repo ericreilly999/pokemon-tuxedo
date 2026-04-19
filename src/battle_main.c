@@ -1548,15 +1548,15 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
      && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER_TOWER)))
     {
-        // Pokemon Tuxedo: Declare variables at the beginning (C89 requirement)
+        /* Pokemon Tuxedo: Declare variables at the beginning (C89 requirement) */
         u8 badge_count;
         u8 region_id;
         u8 trainer_class;
         u8 party_size;
-        
+
         ZeroEnemyPartyMons();
-        
-        // Pokemon Tuxedo: Get scaled levels for this trainer
+
+        /* Pokemon Tuxedo: Get scaled levels for this trainer */
         badge_count = GetBadgeCount();
         region_id = GetCurrentRegion();
         trainer_class = gTrainers[trainerNum].trainerClass;
@@ -1564,17 +1564,22 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
         
         for (i = 0; i < gTrainers[trainerNum].partySize; i++)
         {
-            // Pokemon Tuxedo: Declare variables at the beginning (C89 requirement)
+            /* Pokemon Tuxedo: Declare variables at the beginning (C89 requirement) */
             u8 scaled_level;
             bool8 is_ace;
+            bool8 is_champion_slot;
             struct LevelRange level_range;
-            
-            // Pokemon Tuxedo: Calculate scaled level for this Pokemon
+            u8 trainer_min;
+            u8 trainer_max;
+            u8 range_size;
+            u8 random_offset;
+
+            /* Pokemon Tuxedo: Calculate scaled level for this Pokemon */
             is_ace = (i == party_size - 1);
-            
+
             if (trainer_class == TRAINER_CLASS_LEADER)
             {
-                // Gym leader
+                /* Gym leader */
                 if (is_ace)
                     scaled_level = SafeGetGymLeaderAceLevel(badge_count);
                 else
@@ -1582,7 +1587,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             }
             else if (trainer_class == TRAINER_CLASS_ELITE_FOUR || trainer_class == TRAINER_CLASS_CHAMPION)
             {
-                // Elite Four or Champion
+                /* Elite Four or Champion */
                 if (is_ace)
                     scaled_level = SafeGetEliteFourAceLevel(badge_count);
                 else
@@ -1590,33 +1595,27 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             }
             else if (trainer_class == TRAINER_CLASS_RIVAL_EARLY || trainer_class == TRAINER_CLASS_RIVAL_LATE)
             {
-                // Rival
+                /* Rival: detect whether rival occupies Champion slot (Req 22) */
+                is_champion_slot = (trainer_class == TRAINER_CLASS_CHAMPION);
                 if (is_ace)
-                    scaled_level = SafeGetRivalAceLevel(badge_count);
+                    scaled_level = SafeGetRivalAceLevel(badge_count, region_id, is_champion_slot);
                 else
-                    scaled_level = SafeGetRivalAverageLevel(badge_count, region_id);
+                    scaled_level = SafeGetRivalAverageLevel(badge_count, region_id, is_champion_slot);
             }
             else
             {
-                // Regular trainer - use wild Pokemon level range + 5
-                // If wild range is 10-20, trainer range should be 15-25
+                /* Regular trainer - use wild Pokemon level range + 5.
+                   If wild range is 10-20, trainer range should be 15-25. */
                 level_range = SafeGetWildPokemonLevelRange(badge_count, region_id, FALSE);
-                
-                // Calculate trainer range: wild_min + 5 to wild_max + 5
-                // Use random level within this range for variety
-                {
-                    u8 trainer_min = level_range.min_level + 5;
-                    u8 trainer_max = level_range.max_level + 5;
-                    u8 range_size = trainer_max - trainer_min;
-                    
-                    // Use a simple pseudo-random based on trainer number and Pokemon index
-                    u8 random_offset = (trainerNum + i) % (range_size + 1);
-                    scaled_level = trainer_min + random_offset;
-                    
-                    // Clamp to valid range
-                    if (scaled_level > 100)
-                        scaled_level = 100;
-                }
+                trainer_min = level_range.min_level + 5;
+                trainer_max = level_range.max_level + 5;
+                range_size = trainer_max - trainer_min;
+                /* Use a simple pseudo-random based on trainer number and Pokemon index */
+                random_offset = (trainerNum + i) % (range_size + 1);
+                scaled_level = trainer_min + random_offset;
+                /* Clamp to valid range */
+                if (scaled_level > 100)
+                    scaled_level = 100;
             }
 
             if (gTrainers[trainerNum].doubleBattle == TRUE)

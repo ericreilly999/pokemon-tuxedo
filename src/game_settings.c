@@ -3,7 +3,7 @@
 
 /*
  * Game Settings System
- * 
+ *
  * Requirements:
  * - 17.1: Default battle mode to SET
  * - 17.2: Settings menu interface
@@ -12,9 +12,9 @@
  * - 17.5: Persist settings across sessions
  */
 
-// Settings storage
-EWRAM_DATA static u8 sBattleMode = BATTLE_MODE_SET;  // Default to SET
-EWRAM_DATA static u8 sGameSpeed = 1;  // Default to 1x
+/* Settings storage */
+EWRAM_DATA static u8 sBattleMode = BATTLE_MODE_SET; /* Default to SET */
+EWRAM_DATA static u8 sGameSpeed = 1;                /* Default to 1x */
 
 void SetBattleMode(u8 mode)
 {
@@ -40,19 +40,19 @@ u8 GetGameSpeed(void)
 
 void ApplyGameSpeed(u32 *duration)
 {
-    // Apply game speed multiplier to duration
+    /* Apply game speed multiplier to duration */
     if (sGameSpeed > 1)
         *duration = *duration / sGameSpeed;
 }
 
 void SaveGameSettings(void)
 {
-    // Save settings to save data
-    // This would integrate with the main save system
+    /* Save settings to save data.
+       This would integrate with the main save system. */
 }
 
 void LoadGameSettings(void)
 {
-    // Load settings from save data
-    // This would integrate with the main save system
+    /* Load settings from save data.
+       This would integrate with the main save system. */
 }
