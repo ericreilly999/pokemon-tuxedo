@@ -172,6 +172,29 @@ Legend: [x] done · [ ] todo · [!] blocked · [~] deferred
   - Complexity: L
   - Owner: Application Engineer
 
+- [x] DEV-020 — Fix rival first-encounter level override (Req 22 P2 bug)
+  - In `src/level_scaler.c` `GetRivalAverageLevel()`, add `if (badge_count == 0) return 5;`
+    at the top of the rival else-branch, before `GetPlayerTop3Average()` is called
+  - Current code has only a soft floor (`if player_avg < 5 return 5`) which is bypassed
+    when player's starter is above level 5
+  - Verify: 0-badge save + level-9 starter → rival spawns at level 5
+  - Spec Ref: Req 22 AC 3
+  - Depends On: —
+  - Complexity: S
+  - Owner: Application Engineer
+
+- [x] DEV-021 — Fix is_champion_slot detection (latent Req 22 bug)
+  - In `src/battle_main.c` `CreateNPCTrainerParty()`, line ~1599, the expression
+    `(trainer_class == TRAINER_CLASS_CHAMPION)` is dead code inside the rival branch —
+    TRAINER_CLASS_CHAMPION is handled by a preceding else-if so this is always FALSE
+  - Replace with a check against the Blue/rival-as-Champion trainer identity constant
+    (e.g. TRAINER_BLUE_CHAMPION or equivalent from the game's trainer constants)
+  - Verify: Final E4 rival uses Champion formula (wild_max + 15), not party-average
+  - Spec Ref: Req 22 AC 6, ADR-007
+  - Depends On: —
+  - Complexity: S
+  - Owner: Application Engineer
+
 - [ ] QA-006 — Validate rival formula, ace bonus, and travel system in live build (Reqs 22–25)
   - Confirm rival in encounter slot uses adaptive formula (test vs. Champion slot rival)
   - Confirm Champion slot trainer (Blue) uses Champion formula, not adaptive
