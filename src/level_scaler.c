@@ -235,10 +235,16 @@ u8 GetRivalAverageLevel(u8 badge_count, u8 region_id, bool8 is_champion_slot)
     }
     else
     {
+        /* Hard override: first encounter (0 badges) always spawns rival at level 5.
+           The soft floor below is insufficient when the starter is already above
+           level 5 (e.g. level 9 after grinding). */
+        if (badge_count == 0)
+            return 5;
+
         /* Rival adaptive formula: player top-3 average */
         player_avg = GetPlayerTop3Average();
         if (player_avg < 5)
-            return 5; /* minimum floor, covers 0-badge first encounter */
+            return 5; /* minimum floor for subsequent encounters */
         return player_avg;
     }
 }

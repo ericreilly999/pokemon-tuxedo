@@ -1595,8 +1595,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
             }
             else if (trainer_class == TRAINER_CLASS_RIVAL_EARLY || trainer_class == TRAINER_CLASS_RIVAL_LATE)
             {
-                /* Rival: detect whether rival occupies Champion slot (Req 22) */
-                is_champion_slot = (trainer_class == TRAINER_CLASS_CHAMPION);
+                /* Rival: detect whether rival occupies Champion slot (Req 22, ADR-007).
+                   The previous check (trainer_class == TRAINER_CLASS_CHAMPION) was dead
+                   code — TRAINER_CLASS_CHAMPION is caught by the preceding else-if and
+                   never reaches this branch.  Instead, identify the Champion-slot rival
+                   fights by their specific trainer IDs. */
+                is_champion_slot = (trainerNum == TRAINER_CHAMPION_FIRST_SQUIRTLE
+                    || trainerNum == TRAINER_CHAMPION_FIRST_BULBASAUR
+                    || trainerNum == TRAINER_CHAMPION_FIRST_CHARMANDER
+                    || trainerNum == TRAINER_CHAMPION_REMATCH_SQUIRTLE
+                    || trainerNum == TRAINER_CHAMPION_REMATCH_BULBASAUR
+                    || trainerNum == TRAINER_CHAMPION_REMATCH_CHARMANDER);
                 if (is_ace)
                     scaled_level = SafeGetRivalAceLevel(badge_count, region_id, is_champion_slot);
                 else
